@@ -1,4 +1,5 @@
-import { access, cp, mkdir, readdir, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { access, cp, mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { basename, join, resolve, sep } from "node:path";
 import { build } from "esbuild";
 
@@ -17,6 +18,10 @@ try {
 const clientRoot = resolve("dist/client");
 await access(resolve("dist/server/index.js"));
 await access(clientRoot);
+const releaseVersion = createHash("sha256")
+  .update(await readFile(resolve("dist/client/.vite/manifest.json")))
+  .digest("hex")
+  .slice(0, 12);
 await mkdir(releaseRoot);
 for (const entry of await readdir(clientRoot)) {
   await cp(join(clientRoot, entry), join(releaseRoot, entry), { recursive: true });
@@ -29,9 +34,19 @@ await build({
   format: "esm",
   platform: "node",
   conditions: ["worker", "browser"],
+  define: { "process.env.CS2_RELEASE_VERSION": JSON.stringify(releaseVersion) },
 });
 
 const compatibilityDate = new Date().toISOString().slice(0, 10);
+await writeFile(join(releaseRoot, "_headers"), `# Cache content-hashed assets immutably
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# The versioned community QR image changes path when its content changes
+/wechat-community-qr-v1.png
+  Cache-Control: public, max-age=31536000, immutable
+`, "utf8");
+
 await writeFile(join(releaseRoot, "wrangler.toml"), `name = "cs2pro"
 pages_build_output_dir = "."
 compatibility_date = "${compatibilityDate}"

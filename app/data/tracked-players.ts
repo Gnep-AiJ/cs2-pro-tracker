@@ -13,6 +13,7 @@ export type TrackedPlayer = {
 // never sufficient evidence because renamed accounts can be squatted later.
 const faceitPlayerIds: Record<string, string> = {
   donk: "e5e8e2a6-d716-4493-b949-e16965f41654",
+  magixx: "1ace868a-d60c-46b8-a61e-f51d40d0305b",
   sh1ro: "168530f8-107a-4e0a-b641-655d2f1594de",
   tn1r: "f2013a83-2603-41a4-a6f0-0c716d52258c",
   zont1x: "93ddaace-5ff6-472f-88a1-769cf387f10a",
@@ -101,7 +102,7 @@ function team(slug: string, name: string, rank: number, points: number, players:
 // FACEIT lookup names were verified against the official Data API on 2026-08-08.
 export const topTeams: TopTeam[] = [
   team("spirit", "Spirit", 1, 1993, [
-    ["donk", "donk666"], ["magixx"], ["sh1ro"], ["tN1R"], ["zont1x"],
+    ["donk", "donk666"], ["magixx", "lilpeepfan-", ["1xigam"]], ["sh1ro"], ["tN1R"], ["zont1x"],
   ]),
   team("falcons", "Falcons", 2, 1988, [
     ["karrigan"], ["kyousuke", "CEMEN_BAKIN"], ["m0NESY", "m0NESY", ["monesy"]], ["NiKo", "niko", ["nikola kovac", "nikola kovač"]], ["TeSeS", "teses"],

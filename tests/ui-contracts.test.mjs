@@ -64,13 +64,18 @@ test("Cloudflare worker applies the optional Workers AI translation binding", as
   assert.match(worker, /translateNews\(response, env\.AI, ctx\)/);
   assert.match(translator, /@cf\/meta\/llama-3\.1-8b-instruct-fast/);
   assert.match(translator, /保留选手、战队、赛事、地图和比分等专有名词原文/);
-  assert.match(translator, /summarizeBatch/);
-  assert.match(translator, /slice\(0, 6\)/);
+  assert.match(translator, /translateBatch/);
+  assert.match(translator, /const BATCH_SIZE = 5/);
   assert.match(translator, /4_000/);
   assert.match(translator, /status: "warming"/);
-  assert.doesNotMatch(translator, /summarizeItem|Promise\.all\(batch/);
+  assert.match(translator, /Promise\.all\(batches\.map/);
+  assert.match(translator, /field\.item\.title = translated\.title/);
+  assert.match(translator, /Object\.keys\(translations\)\.length === expected\.size/);
+  assert.doesNotMatch(translator, /slice\(0, 6\)/);
   assert.match(translator, /x-ai-translation/);
   assert.match(translator, /x-ai-summary/);
+  assert.match(translator, /x-ai-translation-coverage/);
+  assert.match(translator, /headers\.set\("cache-control", "no-store"\)/);
   assert.match(translator, /binding-missing/);
 });
 

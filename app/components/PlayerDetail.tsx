@@ -1,8 +1,9 @@
 "use client";
 
-import { ArrowLeft, ChevronRight, ExternalLink, Gamepad2, Newspaper, RefreshCw, ShieldCheck, Trophy } from "lucide-react";
+import { ArrowLeft, ChevronRight, ExternalLink, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import SiteHeader from "./SiteHeader";
 
 type RecentMatch = {
   id: string;
@@ -70,12 +71,6 @@ type Player = {
 
 type Section = "overview" | "maps" | "matches";
 
-const nav = [
-  { href: "/faceit", label: "FACEIT", icon: Gamepad2 },
-  { href: "/rankings", label: "排行榜", icon: Trophy },
-  { href: "/news", label: "动态", icon: Newspaper },
-];
-
 function flag(code: string | null) {
   if (!code || code.length !== 2) return "🌐";
   return String.fromCodePoint(...code.toUpperCase().split("").map(char => 127397 + char.charCodeAt(0)));
@@ -92,10 +87,6 @@ function value(number: number | null, suffix = "", digits = 1) {
 
 function percent(number: number | null) {
   return number == null ? "—" : `${Math.round(number * 100)}%`;
-}
-
-function Logo() {
-  return <div className="brand"><span className="brand-mark">C2</span><span><b>CS2</b><small>PRO TRACKER</small></span></div>;
 }
 
 function mapName(match: RecentMatch) {
@@ -160,12 +151,7 @@ export default function PlayerDetail({ nickname }: { nickname: string }) {
   }, [load]);
 
   return <div className="site-shell detail-shell player-page-v3">
-    <header>
-      <Link href="/faceit" aria-label="返回 FACEIT 日报"><Logo /></Link>
-      <nav aria-label="站内导航">{nav.map(item => <Link className={item.href === "/faceit" ? "active" : ""} key={item.href} href={item.href}><item.icon size={17} /><span>{item.label}</span></Link>)}</nav>
-      <div className="header-status"><i />职业选手数据中心</div>
-      <button type="button" className="refresh" onClick={() => void load()} disabled={loading} aria-label="刷新选手数据"><RefreshCw size={17} className={loading ? "spin" : ""} /></button>
-    </header>
+    <SiteHeader activeHref="/faceit" status="职业选手数据" onRefresh={() => void load()} refreshing={loading} refreshLabel="刷新选手数据" />
 
     <main className="player-detail-main">
       <Link className="back-link" href="/faceit"><ArrowLeft size={17} />返回 FACEIT 日报</Link>

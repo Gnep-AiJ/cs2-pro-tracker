@@ -2,11 +2,13 @@
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
 import { translateNews, type AiBinding } from "./translate-news";
+import { generateRankingInsights } from "./ranking-insights";
 
 interface Env {
   ASSETS: Fetcher;
   DB: D1Database;
   AI?: AiBinding;
+  RELEASE_VERSION?: string;
   IMAGES: {
     input(stream: ReadableStream): {
       transform(options: Record<string, unknown>): {
@@ -42,20 +44,59 @@ const worker = {
       }, allowedWidths);
     }
 
+    if (request.method === "POST" && url.pathname === "/api/rankings/insights") {
+      const sharedCache = typeof caches === "undefined" ? undefined : caches.default;
+      return generateRankingInsights(request, env.AI, ctx, sharedCache);
+    }
+
+    const shellRoutes = new Set(["/", "/faceit", "/rankings", "/news", "/community", "/matches"]);
+    const cacheableShell = request.method === "GET"
+      && shellRoutes.has(url.pathname)
+      && (request.headers.get("accept") || "").includes("text/html");
+    const shellCache = typeof caches === "undefined" ? null : caches.default;
+    if (cacheableShell && shellCache) {
+      const cacheKey = new Request(`https://cs2pro.internal/page-shell-${env.RELEASE_VERSION || "development"}${url.pathname}`, { method: "GET" });
+      const cached = await shellCache.match(cacheKey);
+      if (cached) {
+        const headers = new Headers(cached.headers);
+        headers.set("x-shell-cache", "hit");
+        return new Response(cached.body, { status: cached.status, statusText: cached.statusText, headers });
+      }
+
+      const response = await handler.fetch(request, env, ctx);
+      const contentType = response.headers.get("content-type") || "";
+      if (response.ok && contentType.includes("text/html")) {
+        const headers = new Headers(response.headers);
+        headers.set("cache-control", "public, max-age=0, s-maxage=86400, stale-while-revalidate=604800");
+        headers.set("x-shell-cache", "miss");
+        const finalResponse = new Response(response.body, {
+          status: response.status,
+          statusText: response.statusText,
+          headers,
+        });
+        ctx.waitUntil(shellCache.put(cacheKey, finalResponse.clone()));
+        return finalResponse;
+      }
+      return response;
+    }
+
     const cacheableApi = request.method === "GET" && ["/api/live", "/api/overview", "/api/rankings", "/api/news"].includes(url.pathname);
     if (cacheableApi) {
       const cache = caches.default;
       const cacheUrl = new URL(request.url);
       cacheUrl.protocol = "https:";
       cacheUrl.hostname = "cs2pro.internal";
-      const cacheVersion = url.pathname === "/api/overview" ? "v16c" : url.pathname === "/api/news" ? "v16d" : "v16b";
+      const cacheVersion = url.pathname === "/api/overview" ? "v17a" : url.pathname === "/api/news" ? "v17b" : url.pathname === "/api/live" ? "v16d" : "v16b";
       cacheUrl.pathname = `/cache-${cacheVersion}${url.pathname}`;
       const cacheKey = new Request(cacheUrl, { method: "GET" });
       const cached = await cache.match(cacheKey);
       if (cached) return cached;
       const response = await handler.fetch(request, env, ctx);
       const finalResponse = url.pathname === "/api/news" ? await translateNews(response, env.AI, ctx) : response;
-      if (finalResponse.ok) ctx.waitUntil(cache.put(cacheKey, finalResponse.clone()));
+      const cacheControl = finalResponse.headers.get("cache-control") || "";
+      if (finalResponse.ok && !/\bno-store\b/i.test(cacheControl)) {
+        ctx.waitUntil(cache.put(cacheKey, finalResponse.clone()));
+      }
       return finalResponse;
     }
 

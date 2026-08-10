@@ -10,11 +10,12 @@ const REQUEST_TIMEOUT_MS = 5_000;
 const CACHE_TTL_MS = 60 * 60_000;
 const STALE_TTL_MS = 6 * 60 * 60_000;
 const CACHE_CONTROL = "public, max-age=3600, s-maxage=3600, stale-while-revalidate=3600";
+const FACEIT_CONCURRENCY = 6;
 
 type CacheEntry = { value: any; expiresAt: number; staleUntil: number };
 const overviewGlobal = globalThis as typeof globalThis & {
-  __cs2GlobalOverviewV1?: CacheEntry;
-  __cs2GlobalOverviewInflightV1?: Promise<any>;
+  __cs2GlobalOverviewV2?: CacheEntry;
+  __cs2GlobalOverviewInflightV2?: Promise<any>;
 };
 
 function officialHeaders() {
@@ -66,7 +67,10 @@ async function buildOverview() {
   if (!headers) throw new Error("FACEIT 数据服务尚未配置");
   const verified = trackedPlayers.filter(player => player.faceitPlayerId);
   const today = chinaDay(new Date());
-  const results = await Promise.allSettled(verified.map(async player => {
+  const results: PromiseSettledResult<any>[] = [];
+  for (let offset = 0; offset < verified.length; offset += FACEIT_CONCURRENCY) {
+    const batch = verified.slice(offset, offset + FACEIT_CONCURRENCY);
+    results.push(...await Promise.allSettled(batch.map(async player => {
     const payload = await fetchHistory(player.faceitPlayerId!, headers);
     const history = Array.isArray(payload?.items) ? payload.items : [];
     const todayMatches = history.filter((match: any) => {
@@ -99,7 +103,8 @@ async function buildOverview() {
       currentWinStreak: currentWinStreak === -1 ? recentResults.length : currentWinStreak,
       lastMatchAt: todayMatches[0] ? matchTime(todayMatches[0]) : null,
     };
-  }));
+    })));
+  }
   const players = results.flatMap(result => result.status === "fulfilled" ? [result.value] : []);
   if (players.length === 0) throw new Error("FACEIT 历史记录全部读取失败");
   const activePlayers = players.filter(player => player.matches > 0)
@@ -126,6 +131,7 @@ async function buildOverview() {
       winningPlayers: activePlayers.filter(player => player.wins > 0).length,
       hottest,
     },
+    players,
     leaders,
     focus: leaders[0] || null,
     coverage: {
@@ -139,19 +145,22 @@ async function buildOverview() {
 
 export async function GET() {
   const now = Date.now();
-  const cached = overviewGlobal.__cs2GlobalOverviewV1;
+  const cached = overviewGlobal.__cs2GlobalOverviewV2;
   if (cached && cached.expiresAt > now) {
     return NextResponse.json(cached.value, { headers: { "Cache-Control": CACHE_CONTROL } });
   }
-  if (!overviewGlobal.__cs2GlobalOverviewInflightV1) {
-    overviewGlobal.__cs2GlobalOverviewInflightV1 = buildOverview().finally(() => {
-      overviewGlobal.__cs2GlobalOverviewInflightV1 = undefined;
+  if (!overviewGlobal.__cs2GlobalOverviewInflightV2) {
+    overviewGlobal.__cs2GlobalOverviewInflightV2 = buildOverview().finally(() => {
+      overviewGlobal.__cs2GlobalOverviewInflightV2 = undefined;
     });
   }
   try {
-    const value = await overviewGlobal.__cs2GlobalOverviewInflightV1;
-    overviewGlobal.__cs2GlobalOverviewV1 = { value, expiresAt: now + CACHE_TTL_MS, staleUntil: now + STALE_TTL_MS };
-    return NextResponse.json(value, { headers: { "Cache-Control": CACHE_CONTROL } });
+    const value = await overviewGlobal.__cs2GlobalOverviewInflightV2;
+    const complete = value.coverage.returned === value.coverage.verified;
+    if (complete) {
+      overviewGlobal.__cs2GlobalOverviewV2 = { value, expiresAt: now + CACHE_TTL_MS, staleUntil: now + STALE_TTL_MS };
+    }
+    return NextResponse.json(value, { headers: { "Cache-Control": complete ? CACHE_CONTROL : "no-store" } });
   } catch {
     if (cached && cached.staleUntil > now) return NextResponse.json(cached.value);
     return NextResponse.json({ error: "今日总览暂时无法读取" }, { status: 502 });

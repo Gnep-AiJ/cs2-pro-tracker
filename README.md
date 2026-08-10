@@ -49,4 +49,12 @@ npm run lint
 npm test
 ```
 
+## 项目导航
+
+- `AGENTS.md`：AI 协作入口与阅读顺序
+- `docs/PROJECT_MAP.md`：页面、API、数据流和关键路径
+- `docs/UI_GUIDE.md`：界面、文案与手机端规则
+- `docs/DECISIONS.md`：不可无意回退的项目决策
+- `skills/cs2-pro-tracker/SKILL.md`：项目领域规则
+
 `.env.local`、构建缓存和 Cloudflare 发布包均已加入忽略规则，不应提交到仓库。

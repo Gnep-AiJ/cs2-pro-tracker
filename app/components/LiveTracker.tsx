@@ -6,19 +6,19 @@ import {
   Flame,
   Gamepad2,
   Newspaper,
-  RefreshCw,
   Radio,
   Search,
   Trophy,
 } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { rankingSnapshot, topTeams } from "../data/tracked-players";
 import { readBrowserCache, writeBrowserCache } from "../lib/browser-cache";
+import CommunityPage from "./CommunityPage";
+import SiteHeader, { Logo } from "./SiteHeader";
 
-type Tab = "faceit" | "news";
+type Tab = "faceit" | "news" | "community";
 type RecentFaceitMatch = {
   id: string;
   playedAt: string | null;
@@ -91,6 +91,8 @@ type OverviewFeed = {
 
 const FACEIT_CLIENT_TTL = 60 * 60_000;
 const NEWS_CLIENT_TTL = 12 * 60 * 60_000;
+// Stable release copy; transient FACEIT failures remain visible through API coverage only.
+const RELEASE_VERIFIED_PLAYER_COUNT = 44;
 
 function playerSearchTarget(value: string) {
   const normalized = value.trim();
@@ -98,19 +100,10 @@ function playerSearchTarget(value: string) {
 }
 
 const tabs = {
-  faceit: { href: "/faceit", label: "FACEIT", note: "职业选手今日 FACEIT 状态" },
-  news: { href: "/news", label: "动态", note: "职业圈近期动态" },
+  faceit: { href: "/faceit", label: "FACEIT", note: "职业选手公开 FACEIT 数据" },
+  news: { href: "/news", label: "动态", note: "最近 30 天职业圈更新" },
+  community: { href: "/community", label: "社区", note: "参与产品共建" },
 };
-
-export const siteNav = [
-  { href: "/faceit", label: "FACEIT", icon: Gamepad2 },
-  { href: "/rankings", label: "排行榜", icon: Trophy },
-  { href: "/news", label: "动态", icon: Newspaper },
-];
-
-export function Logo() {
-  return <div className="brand"><span className="brand-mark">C2</span><span><b>CS2</b><small>PRO TRACKER</small></span></div>;
-}
 
 function timeAgo(value: string | null) {
   if (!value) return "时间未知";
@@ -136,7 +129,7 @@ function Empty({ title, detail }: { title: string; detail: string }) {
 }
 
 function Loading({ news = false, progress = 0 }: { news?: boolean; progress?: number }) {
-  return <>{news ? <div className="news-loading-progress" role="status" aria-live="polite"><span><b>正在聚合近期动态</b><small>{Math.round(progress)}%</small></span><i><em style={{ width: `${progress}%` }} /></i><p>正在整理中文摘要，首次打开可能需要几秒。</p></div> : null}<div className="loading-grid">{[1, 2, 3, 4, 5, 6].map(i => <div className="skeleton-card" key={i}><i /><span /><b /></div>)}</div></>;
+  return <>{news ? <div className="news-loading-progress" role="status" aria-live="polite"><span><b>正在读取资讯源</b><small>{Math.round(progress)}%</small></span><i><em style={{ width: `${progress}%` }} /></i><p>首次读取需要连接多个公开来源，可能需要几秒。</p></div> : null}<div className="loading-grid">{[1, 2, 3, 4, 5, 6].map(i => <div className="skeleton-card" key={i}><i /><span /><b /></div>)}</div></>;
 }
 
 function PlayerCard({ player }: { player: Player }) {
@@ -147,10 +140,10 @@ function PlayerCard({ player }: { player: Player }) {
   const recentLosses = recent.filter(match => match.result === "L").length;
   const recentWinRate = recentWins + recentLosses ? Math.round((recentWins / (recentWins + recentLosses)) * 100) : 0;
   const eloProgress = Math.max(8, Math.min(100, ((player.elo || 2000) - 2000) / 35));
-  return <motion.article layout className={`player-card ${active ? "is-active" : ""}`} whileHover={{ y: -4 }} transition={{ duration: .2 }}>
+  return <article className={`player-card ${active ? "is-active" : ""}`}>
     <div className="card-button player-card-link">
       <div className="player-top">
-        <div className="player-avatar"><span>{player.nickname.slice(0, 2)}</span>{player.avatar ? <img src={player.avatar} alt={`${player.nickname} FACEIT 头像`} loading="lazy" onError={event => { event.currentTarget.style.display = "none"; }} /> : null}<i className={active ? "online" : ""} /></div>
+      <div className="player-avatar"><span>{player.nickname.slice(0, 2)}</span>{player.avatar ? <img src={player.avatar} alt={`${player.nickname} FACEIT 头像`} loading="lazy" decoding="async" referrerPolicy="no-referrer" onError={event => { event.currentTarget.style.display = "none"; }} /> : null}<i className={active ? "online" : ""} /></div>
         <div className="player-id"><span>{countryFlag(player.country)} {player.team}</span><h3>{player.nickname}</h3><small>{player.role} · LV.{player.level ?? "--"}</small></div>
         <span className={`activity-badge ${active ? "hot" : ""}`}>{!available ? (player.identityStatus === "unverified" ? "身份待核验" : "暂未同步") : active ? <><Flame size={12} /> 今日活跃</> : "今日未开打"}</span>
       </div>
@@ -163,19 +156,19 @@ function PlayerCard({ player }: { player: Player }) {
       </div>
       <Link className="expand-hint" href={`/players/${encodeURIComponent(player.nickname)}`} aria-label={`查看 ${player.nickname} 的个人数据与比赛记录`}><span>查看个人数据与比赛记录</span><ChevronRight size={16} /></Link>
     </div>
-  </motion.article>;
+  </article>;
 }
 
 function NewsCard({ item, featured, expanded, toggle }: { item: NewsItem; featured: boolean; expanded: boolean; toggle: () => void }) {
-  return <motion.article layout className={`news-card ${featured ? "featured" : ""}`} whileHover={{ y: -3 }}>
+  return <article className={`news-card ${featured ? "featured" : ""}`}>
     <button type="button" className="card-button" onClick={toggle} aria-expanded={expanded}>
-      <div className="news-image"><Newspaper size={30} />{item.image ? <img src={item.image} alt="" loading="lazy" referrerPolicy="no-referrer" onError={event => { event.currentTarget.style.display = "none"; }} /> : null}<span>{item.category}</span></div>
+      <div className="news-image"><Newspaper size={30} />{item.image ? <img src={item.image} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer" onError={event => { event.currentTarget.style.display = "none"; }} /> : null}<span>{item.category}</span></div>
       <div className="news-copy"><div><span>{item.source}</span>{item.aiTranslated ? <em>AI 中文摘要</em> : null}<time>{timeAgo(item.publishedAt)}</time></div><h3>{item.title}</h3><p>{item.description || "该来源暂未提供摘要，可查看原始来源。"}</p><span className="read-more">{expanded ? "收起内容" : "展开阅读"}<ChevronDown size={15} className={expanded ? "rotate" : ""} /></span></div>
     </button>
-    <AnimatePresence initial={false}>{expanded && <motion.div className="inline-detail news-detail" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
+    {expanded && <div className="inline-detail news-detail">
       <span>{item.category} · {item.source}</span><p>{item.description || item.originalTitle}</p><small>{fullTime(item.publishedAt)} · 内容摘要</small>{item.sourceUrl ? <a href={item.sourceUrl} target="_blank" rel="noreferrer">查看原始来源 <ChevronRight size={14} /></a> : null}
-    </motion.div>}</AnimatePresence>
-  </motion.article>;
+    </div>}
+  </article>;
 }
 
 export default function LiveTracker({ initialTab = "faceit" }: { initialTab?: Tab }) {
@@ -186,7 +179,7 @@ export default function LiveTracker({ initialTab = "faceit" }: { initialTab?: Ta
   const [newsFeed, setNewsFeed] = useState<NewsFeed | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(initialTab !== "community");
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [playerQuery, setPlayerQuery] = useState("");
   const [selectedTeam, setSelectedTeam] = useState("spirit");
@@ -194,42 +187,44 @@ export default function LiveTracker({ initialTab = "faceit" }: { initialTab?: Ta
   const [newsLimit, setNewsLimit] = useState(12);
 
   const load = useCallback(async (quiet = false) => {
+    if (tab === "community") { setError(""); setLoading(false); return; }
     if (!quiet) { setLoading(true); setLoadingProgress(tab === "news" ? 6 : 0); }
     setError("");
     try {
       if (tab === "faceit") {
-        const overviewRequest = fetch("/api/overview", { cache: "no-cache" });
-        const response = await fetch(`/api/live?team=${encodeURIComponent(selectedTeam)}`);
+        const overviewRequest = fetch("/api/overview", { cache: "no-cache" }).then(async overviewResponse => {
+          if (!overviewResponse.ok) return;
+          const overview = await overviewResponse.json() as OverviewFeed;
+          setOverviewFeed(overview);
+        }).catch(() => undefined);
+        const response = await fetch(`/api/live?team=${encodeURIComponent(selectedTeam)}`, { cache: "no-store" });
         if (!response.ok) throw new Error("FACEIT 数据请求失败");
         const live = await response.json() as LiveFeed;
         setLiveFeed(live);
-        writeBrowserCache(`cs2:live:v16b:${selectedTeam}`, live, FACEIT_CLIENT_TTL);
+        writeBrowserCache(`cs2:live:v16e:${selectedTeam}`, live, FACEIT_CLIENT_TTL);
         if (!quiet) setLoading(false);
-        const overviewResponse = await overviewRequest;
-        if (overviewResponse.ok) {
-          const overview = await overviewResponse.json() as OverviewFeed;
-          setOverviewFeed(overview);
-        }
+        await overviewRequest;
       } else {
         const response = await fetch("/api/news");
         if (!response.ok) throw new Error("动态数据请求失败");
         const news = await response.json() as NewsFeed;
         setNewsFeed(news);
-        writeBrowserCache("cs2:news:v16b", news, NEWS_CLIENT_TTL);
+        writeBrowserCache("cs2:news:v17b", news, NEWS_CLIENT_TTL);
       }
     } catch { if (!quiet) setError("当前内容暂时无法加载，请稍后再试。"); }
     finally { if (!quiet) { setLoadingProgress(100); setLoading(false); } }
   }, [selectedTeam, tab]);
 
   useEffect(() => {
+    if (tab === "community") return;
     const first = window.setTimeout(() => {
       let hasPrimaryCache = false;
       if (tab === "faceit") {
-        const cachedLive = readBrowserCache<LiveFeed>(`cs2:live:v16b:${selectedTeam}`);
+        const cachedLive = readBrowserCache<LiveFeed>(`cs2:live:v16e:${selectedTeam}`);
         if (cachedLive) { setLiveFeed(cachedLive); hasPrimaryCache = true; }
         else setLiveFeed(null);
       } else {
-        const cachedNews = readBrowserCache<NewsFeed>("cs2:news:v16b");
+        const cachedNews = readBrowserCache<NewsFeed>("cs2:news:v17b");
         if (cachedNews) { setNewsFeed(cachedNews); hasPrimaryCache = true; }
         else setNewsFeed(null);
       }
@@ -257,23 +252,19 @@ export default function LiveTracker({ initialTab = "faceit" }: { initialTab?: Ta
   const totalPlayers = topTeams.reduce((sum, team) => sum + team.members.length, 0);
 
   return <div className="site-shell">
-    <header>
-      <Logo />
-      <nav aria-label="站内导航">{siteNav.map(item => <Link className={item.href === currentTab.href ? "active" : ""} key={item.href} href={item.href}><item.icon size={16} /><span>{item.label}</span></Link>)}</nav>
-      <div className="header-status"><i />职业赛场情报</div>
-      <button type="button" className="refresh" onClick={() => void load()} disabled={loading} aria-label="刷新数据"><RefreshCw size={16} className={loading ? "spin" : ""} /></button>
-    </header>
+    <SiteHeader activeHref={currentTab.href} status="公开数据源" onRefresh={tab !== "community" ? () => void load() : undefined} refreshing={loading} />
 
-    <main>
+    <main className={tab === "community" ? "community-shell-main" : undefined}>
+      {tab === "community" ? <CommunityPage /> : <>
       {tab === "faceit" && <section className="hero daily-report-hero">
         <div className="daily-report-heading">
           <div><span className="eyebrow">46 名职业选手 · 今日战绩</span><h1><span className="hero-h1-light">今日 FACEIT</span><em>状态日报</em></h1></div>
           <time>{overviewFeed ? `${fullTime(overviewFeed.updatedAt)} 更新 · UTC+8` : "正在同步数据 · UTC+8"}</time>
         </div>
-        <div className="spotlight daily-hot-list"><div className="spotlight-label"><Flame size={15} /><span>今日手感火热榜</span></div>{overviewFeed?.leaders.length ? <div className="spotlight-leaders">{overviewFeed.leaders.map((player, index) => { const useToday = overviewFeed.mode === "today" && player.matches > 0; return <Link href={`/players/${encodeURIComponent(player.nickname)}`} key={player.id}><b>0{index + 1}</b><div className="spotlight-avatar"><span>{player.nickname.slice(0, 2)}</span>{player.avatar ? <img src={player.avatar} alt="" onError={event => { event.currentTarget.style.display = "none"; }} /> : null}</div><span><small>{player.team}</small><strong>{player.nickname}</strong></span><em><b>{useToday ? `${player.wins} 胜 ${player.losses} 负` : `${player.recentWins} 胜 ${player.recentLosses} 负`}</b><small>{useToday ? `${player.winRate}% · 今日` : `${player.recentWinRate}% · 近 10 场`}</small></em></Link>; })}</div> : <div className="spotlight-wait">{overviewFeed ? "暂无可用战绩" : "正在生成手感榜…"}</div>}</div>
+        <div className="spotlight daily-hot-list"><div className="spotlight-label"><Flame size={15} /><span>今日手感火热榜</span></div>{overviewFeed?.leaders.length ? <div className="spotlight-leaders">{overviewFeed.leaders.map((player, index) => { const useToday = overviewFeed.mode === "today" && player.matches > 0; return <Link href={`/players/${encodeURIComponent(player.nickname)}`} key={player.id}><b>0{index + 1}</b><div className="spotlight-avatar"><span>{player.nickname.slice(0, 2)}</span>{player.avatar ? <img src={player.avatar} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer" onError={event => { event.currentTarget.style.display = "none"; }} /> : null}</div><span><small>{player.team}</small><strong>{player.nickname}</strong></span><em><b>{useToday ? `${player.wins} 胜 ${player.losses} 负` : `${player.recentWins} 胜 ${player.recentLosses} 负`}</b><small>{useToday ? `${player.winRate}% · 今日` : `${player.recentWinRate}% · 近 10 场`}</small></em></Link>; })}</div> : <div className="spotlight-wait">{overviewFeed ? "暂无可用战绩" : "正在生成手感榜…"}</div>}</div>
       </section>}
 
-      <section className={`data-strip data-strip-${tab}`}><div><Gamepad2 size={15} /><span>收录选手</span><b>{totalPlayers}</b></div>{tab === "faceit" ? <div><Trophy size={15} /><span>FACEIT 排行榜</span><Link href="/rankings">查看</Link></div> : <div><Newspaper size={15} /><span>近 30 天动态</span><b>{newsFeed?.items.length || 0}</b></div>}<small>{tab === "faceit" && overviewFeed ? `已收录 ${overviewFeed.coverage.returned} 名核验选手` : tab === "news" && newsFeed ? `${timeAgo(newsFeed.updatedAt)}更新` : "正在同步"}</small></section>
+      <section className={`data-strip data-strip-${tab}`}><div><Gamepad2 size={15} /><span>收录选手</span><b>{totalPlayers}</b></div>{tab === "faceit" ? <div><Trophy size={15} /><span>FACEIT 排行榜</span><Link href="/rankings">查看</Link></div> : <div><Newspaper size={15} /><span>近 30 天动态</span><b>{newsFeed?.items.length || 0}</b></div>}<small>{tab === "faceit" && overviewFeed ? `已收录 ${RELEASE_VERIFIED_PLAYER_COUNT} 名核验选手` : tab === "news" && newsFeed ? `${timeAgo(newsFeed.updatedAt)}更新` : "正在同步"}</small></section>
 
       <section className={`content-section content-section-${tab}`}>
         <div className="section-head"><div><span>{currentTab.note}</span><h2>{currentTab.label}</h2></div><p>{tab === "faceit" ? "选择战队查看完整阵容；点击选手查看个人数据与比赛记录。" : "聚合固定 CS2 信息源，仅展示最近 30 天内容。"}</p></div>
@@ -292,6 +283,7 @@ export default function LiveTracker({ initialTab = "faceit" }: { initialTab?: Ta
           return <NewsCard key={item.id} item={item} featured={featured} expanded={expanded === item.id} toggle={() => setExpanded(current => current === item.id ? null : item.id)} />;
         })}</div>{visibleNews.length < filteredNews.length ? <button type="button" className="load-more-news" onClick={() => setNewsLimit(limit => limit + 12)}>继续加载 {Math.min(12, filteredNews.length - visibleNews.length)} 条</button> : null}</> : <Empty title="该分类暂无近期动态" detail={newsFeed?.error || "该分类近 30 天暂无更新。"} />}
       </section>
+      </>}
     </main>
     <footer><Logo /><span>FACEIT 日报与职业选手追踪</span><Trophy size={17} /></footer>
   </div>;

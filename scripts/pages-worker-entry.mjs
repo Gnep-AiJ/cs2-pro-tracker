@@ -1,6 +1,7 @@
 import app from "../dist/server/index.js";
 
 const VINEXT_FONT_PREFIX = "/workspace/sites/cs2-pro-tracker/.vinext/fonts/";
+const RELEASE_VERSION = process.env.CS2_RELEASE_VERSION || "development";
 
 export default {
   async fetch(request, env, ctx) {
@@ -17,6 +18,6 @@ export default {
       if (assetResponse.status !== 404) return assetResponse;
     }
 
-    return app.fetch(request, env, ctx);
+    return app.fetch(request, { ...env, RELEASE_VERSION }, ctx);
   },
 };

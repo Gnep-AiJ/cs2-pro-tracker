@@ -14,16 +14,20 @@ const CACHE_CONTROL = "public, max-age=3600, s-maxage=3600, stale-while-revalida
 type CacheEntry = { value: any; expiresAt: number; staleUntil: number };
 type LiveResult = { body: any; status: number };
 const liveGlobal = globalThis as typeof globalThis & {
-  __cs2LiveCacheV5?: Map<string, CacheEntry>;
+  __cs2LiveCacheV6?: Map<string, CacheEntry>;
   __cs2LiveInflightV4?: Map<string, Promise<LiveResult>>;
 };
-const liveCache = liveGlobal.__cs2LiveCacheV5 ??= new Map<string, CacheEntry>();
+const liveCache = liveGlobal.__cs2LiveCacheV6 ??= new Map<string, CacheEntry>();
 const liveInflight = liveGlobal.__cs2LiveInflightV4 ??= new Map<string, Promise<LiveResult>>();
 
 function liveResponse(result: LiveResult) {
+  const coverage = result.body?.faceit?.coverage;
+  const hasCompleteFaceitData = result.status === 200 &&
+    result.body?.faceit?.configured !== false &&
+    coverage?.profiles === coverage?.requested;
   return NextResponse.json(result.body, {
     status: result.status,
-    headers: result.status === 200 ? { "Cache-Control": CACHE_CONTROL } : undefined,
+    headers: { "Cache-Control": hasCompleteFaceitData ? CACHE_CONTROL : "no-store" },
   });
 }
 
@@ -204,7 +208,9 @@ export async function GET(request: Request) {
   const pending = (async () => {
     try {
       const value = { faceit: await getFaceit(selectedTeam.members), directory, updatedAt: new Date().toISOString(), refreshSeconds: 3600 };
-      liveCache.set(cacheKey, { value, expiresAt: now + CACHE_TTL_MS, staleUntil: now + STALE_TTL_MS });
+      if (value.faceit.coverage.profiles === value.faceit.coverage.requested) {
+        liveCache.set(cacheKey, { value, expiresAt: now + CACHE_TTL_MS, staleUntil: now + STALE_TTL_MS });
+      }
       return { body: value, status: 200 };
     } catch {
       const stale = liveCache.get(cacheKey);

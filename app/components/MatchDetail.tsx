@@ -1,8 +1,9 @@
 "use client";
 
-import { ArrowLeft, ExternalLink, Gamepad2, Newspaper, RefreshCw, Trophy } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import SiteHeader from "./SiteHeader";
 
 type ScorePlayer = {
   id: string;
@@ -50,16 +51,6 @@ type Match = {
   scoreboard: MatchTeam[];
 };
 
-const nav = [
-  { href: "/faceit", label: "FACEIT", icon: Gamepad2 },
-  { href: "/rankings", label: "排行榜", icon: Trophy },
-  { href: "/news", label: "动态", icon: Newspaper },
-];
-
-function Logo() {
-  return <div className="brand"><span className="brand-mark">C2</span><span><b>CS2</b><small>PRO TRACKER</small></span></div>;
-}
-
 function display(value: number | null, suffix = "") {
   return value == null ? "—" : `${value}${suffix}`;
 }
@@ -104,12 +95,7 @@ export default function MatchDetail({ nickname, matchId, playerId }: { nickname:
   }, [load]);
 
   return <div className="site-shell detail-shell match-page-v3">
-    <header>
-      <Link href="/faceit" aria-label="返回 FACEIT 日报"><Logo /></Link>
-      <nav aria-label="站内导航">{nav.map(item => <Link className={item.href === "/faceit" ? "active" : ""} key={item.href} href={item.href}><item.icon size={17} /><span>{item.label}</span></Link>)}</nav>
-      <div className="header-status"><i />FACEIT 对局详情</div>
-      <button type="button" className="refresh" onClick={() => void load()} disabled={loading} aria-label="刷新比赛统计"><RefreshCw size={17} className={loading ? "spin" : ""} /></button>
-    </header>
+    <SiteHeader activeHref="/faceit" status="FACEIT 对局详情" onRefresh={() => void load()} refreshing={loading} refreshLabel="刷新比赛统计" />
 
     <main className="player-detail-main">
       <Link className="back-link" href={`/players/${encodeURIComponent(nickname)}`}><ArrowLeft size={17} />返回 {nickname} 的个人页</Link>

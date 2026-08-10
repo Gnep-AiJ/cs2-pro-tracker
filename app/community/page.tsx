@@ -1,5 +1,5 @@
-import CommunityPage from "../components/CommunityPage";
+import LiveTracker from "../components/LiveTracker";
 
 export default function Community() {
-  return <CommunityPage />;
+  return <LiveTracker initialTab="community" />;
 }
