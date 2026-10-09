@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {mkdir,writeFile} from 'node:fs/promises';
+import {EnvHttpProxyAgent,setGlobalDispatcher} from 'undici';
+setGlobalDispatcher(new EnvHttpProxyAgent());
+const account=process.env.CLOUDFLARE_ACCOUNT_ID;
+assert.equal(account,'e34685eb42587931743b7aae6b38921e');
+const response=await fetch(`https://api.cloudflare.com/client/v4/accounts/${account}/pages/projects/cs2pro`,{headers:{Authorization:`Bearer ${process.env.CLOUDFLARE_API_TOKEN}`},signal:AbortSignal.timeout(20000)});
+const data=await response.json();assert.equal(data.success,true);assert.equal(data.result.name,'cs2pro');
+const report={checkedAt:new Date().toISOString(),project:data.result.name,productionBranch:data.result.production_branch,before:{id:data.result.canonical_deployment.id,url:data.result.canonical_deployment.url},configs:Object.fromEntries(['production','preview'].map(name=>{const c=data.result.deployment_configs[name];return [name,{secretNames:Object.keys(c.env_vars||{}),ai:c.ai_bindings,r2:c.r2_buckets,compatibilityFlags:c.compatibility_flags}];}))};
+await mkdir('outputs/release-20261009-portal',{recursive:true});await writeFile('outputs/release-20261009-portal/' + (process.argv[2] || 'before') + '.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));

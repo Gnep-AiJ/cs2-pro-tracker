@@ -1,0 +1,11 @@
+# 2026-10-07 execution brief
+
+Rebuild the public CS2 tracker as a compact, bilingual data workspace. Events are the first navigation item and the default landing surface; FACEIT is second. Each domain contains Data, Rankings, Compare, and Analysis. Use short labels, dense single-column rows, native disclosure panels, bounded tables and progressive loading. Avoid large hero sections, decorative cards, expanded dashboards and invented statistics. Search must filter the currently available event/team/player dataset and support direct FACEIT nickname lookup.
+
+Use the existing React/Vinext/Cloudflare architecture and verified FACEIT identities. Prefer explicit important-event families (Major main events, IEM, ESL Pro League, BLAST Open/Rivals/Bounty and PGL main events); exclude qualifiers, academy and regional filler. HLTV is a reference link, not a scraped backend. Valve rankings must include the actual snapshot date and source. Never label the old roster directory as current official rankings.
+
+Language priority is explicit URL, saved manual choice, browser languages, then English. Offer English / 中文 in the shared header. Localize new workspace and detail views, accessible labels and empty/error states. Preserve metric names and proper names. Date presentation may follow the user's locale; FACEIT daily aggregation remains UTC+8 and says so.
+
+Statistics and ordering are deterministic. Missing values remain unavailable. FACEIT recent-match samples are not complete daily or 30-day totals; disclose limits and detailed coverage. Compare equal recent-match windows and expose actual sample sizes. Cloudflare AI may interpret only server-retrieved statistics, on explicit request, with a deterministic fallback and an AI label. Never invent results, causality, ELO history, event Rating or live match coverage.
+
+Add a server-only PandaScore fixtures adapter; absence of PANDASCORE_API_TOKEN is a documented blocker, not permission to generate sample events. Include source attribution and bounded fetches. No deployment, paid subscription or credential changes. Preserve existing user changes, advertising script, original files and old route access. Run lint, type checking, production build and tests, then inspect desktop/mobile, search, language, disclosure and compare interactions and open the local preview.

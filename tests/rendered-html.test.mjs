@@ -31,5 +31,16 @@ test("renders production metadata without development marker", async () => {
   );
   const html = await response.text();
   assert.doesNotMatch(html, developmentPreviewMeta);
-  assert.match(html, /FACEIT 职业选手日报/);
+  assert.match(
+    html,
+    /<script(?=[^>]*\bsrc=["']https:\/\/pagead2\.googlesyndication\.com\/pagead\/js\/adsbygoogle\.js\?client=ca-pub-6630686107097564["'])(?=[^>]*\bcrossorigin=["']anonymous["'])[^>]*><\/script>/i,
+  );
+  assert.match(html, /CS2 Pro Tracker — FACEIT &amp; Events/);
+  assert.match(html, /FACEIT matches/);
+  assert.match(html, /Recent matches/);
+  assert.match(html, /aria-haspopup="dialog"/);
+  assert.match(html, /<dialog[^>]*aria-labelledby="match-details-title"/);
+  assert.match(html, /aria-label="Search matches"/);
+  assert.match(html, /Contact &amp; support/);
+  assert.ok(html.indexOf('href="/faceit?lang=en"') < html.indexOf('href="/matches?lang=en"'));
 });

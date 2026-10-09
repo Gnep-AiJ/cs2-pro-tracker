@@ -1,5 +1,5 @@
-import LiveTracker from "../components/LiveTracker";
+import FaceitWorkspace from "../components/FaceitWorkspace";
 
 export default function FaceitPage() {
-  return <LiveTracker initialTab="faceit" />;
+  return <FaceitWorkspace />;
 }

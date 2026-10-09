@@ -1,6 +1,7 @@
-import PlayerDetail from "../../components/PlayerDetail";
+import PlayerDetail from "../../components/CompactPlayerDetail";
 
-export default async function PlayerPage({ params }: { params: Promise<{ nickname: string }> }) {
+export default async function PlayerPage({ params,searchParams }: { params: Promise<{ nickname: string }>;searchParams:Promise<{playerId?:string}> }) {
   const { nickname } = await params;
-  return <PlayerDetail nickname={decodeURIComponent(nickname)} />;
+  const {playerId}=await searchParams;
+  return <PlayerDetail nickname={nickname} playerId={playerId}/>;
 }

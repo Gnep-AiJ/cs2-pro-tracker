@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import {readAdvanced} from '../../../lib/pro-lab';
 
 /* eslint-disable @typescript-eslint/no-explicit-any -- FACEIT match statistics use dynamic field names. */
 
@@ -30,14 +31,15 @@ function values(value: unknown): any[] {
 }
 
 function number(value: unknown) {
+  if (value == null || typeof value === 'boolean' || String(value).trim() === "") return null;
   const parsed = Number(String(value ?? "").replace("%", ""));
   return Number.isFinite(parsed) ? parsed : null;
 }
 
 function stat(stats: Record<string, unknown>, ...keys: string[]) {
-  const entries = Object.entries(stats || {}).map(([key, value]) => [key.toLowerCase().replace(/[^a-z0-9]/g, ""), value] as const);
+  const entries = Object.entries(stats || {}).map(([key, value]) => [key.toLowerCase().replace(/%/g, "percent").replace(/[^a-z0-9]/g, ""), value] as const);
   for (const key of keys) {
-    const found = entries.find(([normalized]) => normalized === key.toLowerCase().replace(/[^a-z0-9]/g, ""));
+    const found = entries.find(([normalized]) => normalized === key.toLowerCase().replace(/%/g, "percent").replace(/[^a-z0-9]/g, ""));
     if (found) return number(found[1]);
   }
   return null;
@@ -52,10 +54,7 @@ function text(stats: Record<string, unknown>, ...keys: string[]) {
   return null;
 }
 
-function extractScoreboard(payload: any) {
-  const root = payload?.payload ?? payload;
-  const rounds = Array.isArray(root) ? root : values(root?.rounds || root?.items || root?.data);
-  const round = rounds.find(candidate => values(candidate?.teams).length >= 2);
+function extractRound(round: any) {
   if (!round) return { map: null, scoreboard: [] };
   const roundStats = round?.roundStats || round?.round_stats || {};
   const scoreboard = values(round?.teams).map((team) => {
@@ -83,8 +82,8 @@ function extractScoreboard(payload: any) {
           adr: stat(playerStats, "ADR", "Average Damage Per Round", "Damage / Round", "c10"),
           headshotPercent: stat(playerStats, "Headshots %", "Headshot %", "HS %", "c4"),
           mvps: stat(playerStats, "MVPs", "MVP", "i9"),
-          firstKills: stat(playerStats, "First Kills"),
           clutchKills: stat(playerStats, "Clutch Kills"),
+          ...readAdvanced(playerStats),
         };
       }),
     };
@@ -110,14 +109,18 @@ export async function GET(request: Request, { params }: { params: Promise<{ matc
       fetchOfficial(`${FACEIT_DATA}/matches/${encodeURIComponent(id)}`, headers),
       fetchOfficial(`${FACEIT_DATA}/matches/${encodeURIComponent(id)}/stats`, headers),
     ]);
-    if (statsResult.status === "rejected") throw statsResult.reason;
+    if (statsResult.status === "rejected" && matchResult.status === 'rejected') throw statsResult.reason;
     const detail = matchResult.status === "fulfilled" ? matchResult.value : {};
-    const extracted = extractScoreboard(statsResult.value);
+    if (detail.game && detail.game !== 'cs2') return NextResponse.json({ error: '仅支持 CS2 对局' }, { status: 404, headers: { 'Cache-Control': 'no-store' } });
+    const root = statsResult.status === 'fulfilled' ? (statsResult.value?.payload ?? statsResult.value) : {};
+    const rounds = (Array.isArray(root) ? root : values(root?.rounds || root?.items || root?.data)).filter(candidate => values(candidate?.teams).length >= 2);
+    const extracted = rounds.length ? extractRound(rounds[0]) : { map: null, scoreboard: [] };
     const detailTeams = values(detail?.teams);
     const roster = new Map(detailTeams.flatMap(team => values(team?.roster)).map(player => [String(player?.player_id || ""), player]));
-    const scoreboard = extracted.scoreboard.map((team, index) => {
+    function enrichTeams(teams: ReturnType<typeof extractRound>['scoreboard']) { return teams.map((team) => {
       const normalizedName = team.name.toLowerCase().replace(/^team_/, "");
-      const source = detailTeams.find(candidate => String(candidate?.name || "").toLowerCase().replace(/^team_/, "") === normalizedName) || detailTeams[index] || {};
+      const source = detailTeams.find(candidate => values(candidate?.roster).some(p=>team.players.some(player=>player.id && player.id===String(p?.player_id||''))))
+        || detailTeams.find(candidate => String(candidate?.name || "").toLowerCase().replace(/^team_/, "") === normalizedName) || {};
       return {
         ...team,
         avatar: typeof source?.avatar === "string" ? source.avatar : null,
@@ -132,7 +135,12 @@ export async function GET(request: Request, { params }: { params: Promise<{ matc
           };
         }),
       };
-    });
+    }); }
+    const maps = rounds.map(round => { const map = extractRound(round); return { map: map.map, scoreboard: enrichTeams(map.scoreboard) }; });
+    const scoreboard = extracted.scoreboard.length ? enrichTeams(extracted.scoreboard) : detailTeams.map((team: any) => ({
+      name: String(team?.name || team?.nickname || 'Team').replace(/^team_/i, ''), score: null, won: false,
+      players: values(team?.roster).map((p: any) => ({ id: String(p.player_id || ''), nickname: String(p.nickname || ''), avatar: p.avatar || null, kills: null, deaths: null, assists: null, kd: null, kr: null, adr: null, headshotPercent: null })),
+    }));
     const pickedMap = String(detail?.voting?.map?.pick?.[0] || "");
     const mapEntity = values(detail?.voting?.map?.entities).find(entity => entity?.guid === pickedMap || entity?.game_map_id === pickedMap) || values(detail?.voting?.map?.entities)[0];
     const startedAt = Number(detail?.started_at);
@@ -140,6 +148,9 @@ export async function GET(request: Request, { params }: { params: Promise<{ matc
     return NextResponse.json({
       match: {
         id,
+        status: String(detail.status || 'UNKNOWN'),
+        statsAvailable: rounds.length > 0,
+        maps,
         playerId: playerId || null,
         competitionName: String(detail?.competition_name || "FACEIT Matchmaking"),
         region: String(detail?.region || "").toUpperCase() || null,
@@ -157,8 +168,8 @@ export async function GET(request: Request, { params }: { params: Promise<{ matc
         scoreboard,
       },
       updatedAt: new Date().toISOString(),
-    }, { headers: { "Cache-Control": "public, max-age=60, s-maxage=300, stale-while-revalidate=300" } });
+    }, { headers: { "Cache-Control": rounds.length > 0 && matchResult.status === 'fulfilled' ? "public, max-age=60, s-maxage=300, stale-while-revalidate=300" : 'no-store' } });
   } catch {
-    return NextResponse.json({ error: "该场比赛的完整统计暂时无法读取" }, { status: 502 });
+    return NextResponse.json({ error: "该场比赛的完整统计暂时无法读取" }, { status: 502, headers: { 'Cache-Control': 'no-store' } });
   }
 }

@@ -10,12 +10,14 @@
     "dev": "vite",
     "build": "vinext build && node scripts/validate-artifact.mjs",
     "start": "vinext start",
-    "test": "npm run build && node --test tests/rendered-html.test.mjs tests/product-architecture.test.mjs tests/ranking-insight-cache.test.mjs tests/news-translation-cache.test.mjs",
+    "test": "npm run build && node --test tests/rendered-html.test.mjs tests/product-architecture.test.mjs tests/ranking-insight-cache.test.mjs tests/news-translation-cache.test.mjs tests/workspace-data.test.mjs tests/workspace-api.test.mjs tests/pro-events.test.mjs tests/player-analysis.test.mjs tests/pro-lab.test.mjs tests/core-metrics.test.mjs tests/match-first.test.mjs tests/pandascore.test.mjs tests/simple-statistics.test.mjs tests/portal-rankings.test.mjs",
     "validate:artifact": "node scripts/validate-artifact.mjs",
     "validate:release": "node scripts/verify-release-assets.mjs",
     "package:pages": "node scripts/package-pages-release.mjs",
     "lint": "eslint .",
-    "db:generate": "bash scripts/sites-env.sh -- drizzle-kit generate"
+    "db:generate": "bash scripts/sites-env.sh -- drizzle-kit generate",
+    "data:events": "node scripts/ingest-pro-events.mjs",
+    "data:lab": "node --env-file=.env.local scripts/ingest-pro-lab.mjs"
   },
   "dependencies": {
     "drizzle-orm": "0.45.2",

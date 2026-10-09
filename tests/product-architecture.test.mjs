@@ -138,25 +138,25 @@ test("Spirit identities use pinned FACEIT IDs instead of nickname guesses", asyn
   assert.match(identities, /\["magixx", "lilpeepfan-", \["1xigam"\]\]/);
 });
 
-test("community stays contact-only with concise invitation copy", async () => {
-  const [community, route, tracker, header] = await Promise.all([
+test("community and permanent contact share separate original contact and payment codes", async () => {
+  const [community, route, tracker, header, contact] = await Promise.all([
     source("app/components/CommunityPage.tsx"),
     source("app/community/page.tsx"),
     source("app/components/LiveTracker.tsx"),
     source("app/components/SiteHeader.tsx"),
+    source("app/components/CreatorContact.tsx"),
   ]);
-  assert.match(community, /\/wechat-community-qr-v1\.png/);
-  assert.match(community, /loading="eager" fetchPriority="high"/);
-  assert.match(community, /decoding="async"/);
-  assert.match(community, /重新加载二维码/);
-  assert.doesNotMatch(community, /qrState|二维码加载中/);
-  assert.match(community, /邀请有兴趣的各位<\/span>\s*<span>加入社区/);
-  assert.match(community, /为后续界面优化和功能开发提供建议/);
-  assert.match(community, /若项目未来实现盈利<\/span>\s*<span>会回馈参与共建的社区成员/);
+  assert.match(community, /<CreatorContact/);
+  assert.match(contact, /\/wechat-community-qr-v1\.png/);
+  assert.match(contact, /\/wechat-support-qr\.png/);
+  assert.match(contact, /unoptimized/);
+  assert.match(contact, /重新加载二维码/);
+  assert.match(contact, /问题反馈、功能建议/);
+  assert.match(contact, /微信打赏/);
   assert.doesNotMatch(community, /一起把产品做得更好|分成|承诺分红|固定比例|界面体验.*数据问题/);
   assert.doesNotMatch(community, /<header>|<main|<footer>/);
   assert.match(route, /<LiveTracker initialTab="community"/);
-  assert.match(header, /href: "\/community", label: "社区"/);
+  assert.match(header, /href: "\/matches", label: "赛事"/);
   assert.match(tracker, /tab === "community" \? <CommunityPage \/>/);
 });
 
@@ -169,7 +169,7 @@ test("every product surface uses the shared site header", async () => {
     source("app/components/MatchDetail.tsx"),
   ]);
   assert.match(header, /const siteNav = \[/);
-  assert.match(header, /href: "\/community", label: "社区"/);
+  assert.match(header, /href: "\/matches", label: "赛事"/);
   for (const component of [tracker, rankings, player, match]) {
     assert.match(component, /<SiteHeader /);
     assert.doesNotMatch(component, /<nav aria-label="站内导航">/);

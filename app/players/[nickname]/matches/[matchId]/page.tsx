@@ -1,4 +1,4 @@
-import MatchDetail from "../../../../components/MatchDetail";
+import MatchDetail from "../../../../components/CompactMatchDetail";
 
 export default async function MatchPage({
   params,

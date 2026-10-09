@@ -1,0 +1,15 @@
+import {EnvHttpProxyAgent,setGlobalDispatcher} from 'undici';
+import {build} from 'esbuild';
+import {mkdir,readFile,writeFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {pathToFileURL} from 'node:url';
+setGlobalDispatcher(new EnvHttpProxyAgent());
+await mkdir('outputs/pro-lab',{recursive:true});
+await build({entryPoints:['worker/pro-collector.ts'],outfile:'outputs/pro-lab/collector.mjs',bundle:true,platform:'node',format:'esm'});
+const {collectProData}=await import(pathToFileURL(resolve('outputs/pro-lab/collector.mjs')).href);
+const prefix='outputs/pro-lab/';
+const PRO_DATA={async get(key){try{const content=await readFile(prefix+key,'utf8');return {etag:'local',json:async()=>JSON.parse(content)};}catch(error){if(error.code==='ENOENT')return null;throw error;}},async put(key,content){const path=prefix+key;await mkdir(path.slice(0,path.lastIndexOf('/')),{recursive:true});await writeFile(path,content);return {etag:'local'};}};
+const report=await collectProData({PRO_DATA,FACEIT_API_KEY:process.env.FACEIT_API_KEY},new Date().toISOString(),{detailLimit:process.argv.includes('--advanced')?500:4,progress:(done,total)=>{if(done%20===0||done===total)console.log(`Match details ${done}/${total}`);}});
+const publicFeed=JSON.parse(await readFile(prefix+'public/v1.json','utf8'));publicFeed.storage='snapshot';
+await writeFile('app/data/pro-lab-snapshot.json',JSON.stringify(publicFeed));
+console.log(JSON.stringify(report,null,2));

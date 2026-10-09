@@ -105,7 +105,7 @@ export const topTeams: TopTeam[] = [
     ["donk", "donk666"], ["magixx", "lilpeepfan-", ["1xigam"]], ["sh1ro"], ["tN1R"], ["zont1x"],
   ]),
   team("falcons", "Falcons", 2, 1988, [
-    ["karrigan"], ["kyousuke", "CEMEN_BAKIN"], ["m0NESY", "m0NESY", ["monesy"]], ["NiKo", "niko", ["nikola kovac", "nikola kovač"]], ["TeSeS", "teses"],
+    ["karrigan"], ["kyousuke", "CEMEN_BAKIN"], ["m0NESY", "m0NESY", ["monesy", "m0ensy", "moensy", "m0nesy-"]], ["NiKo", "niko", ["nikola kovac", "nikola kovač"]], ["TeSeS", "teses"],
   ]),
   team("vitality", "Vitality", 3, 1908, [
     ["apEX"], ["flameZ", "flameZ-"], ["mezii", "mezii--"], ["ropz"], ["ZywOo", "ZywOo", ["zywoo"]],
@@ -136,6 +136,15 @@ export const topTeams: TopTeam[] = [
 export const trackedPlayers = topTeams.flatMap(entry => entry.members);
 export const focusPlayers = trackedPlayers;
 
+// Search-only identities extend the team directory without expanding background polling.
+// 2026-10-09: official FACEIT /players?game=cs2&game_player_id=76561198034202275
+// returned this ID and s1mplecsgod. Steam redirects to /id/officials1mple/;
+// https://bo5.gg/cs2/players/s1mple/ links both profiles. s1mple- is another account.
+export const searchablePlayers: TrackedPlayer[] = [...trackedPlayers, {
+  display: 's1mple', lookup: 's1mplecsgod', faceitPlayerId: 'ac71ba3c-d3d4-45e7-8be2-26aa3986867d',
+  team: 'BC.Game', role: 'AWPer', country: 'UA', focus: false, aliases: ['simple', 's1mplecsgo'],
+}];
+
 export function findTopTeam(value: string | null | undefined) {
   if (!value) return topTeams[0];
   const normalized = value.toLowerCase();
@@ -144,7 +153,7 @@ export function findTopTeam(value: string | null | undefined) {
 
 export function findTrackedPlayer(nickname: string) {
   const normalized = nickname.toLowerCase();
-  return trackedPlayers.find(player =>
+  return searchablePlayers.find(player =>
     player.lookup.toLowerCase() === normalized ||
     player.display.toLowerCase() === normalized ||
     player.aliases.some(alias => alias.toLowerCase() === normalized)

@@ -4,3 +4,8 @@ declare namespace Cloudflare {
     AI?: Ai;
   }
 }
+
+// Cloudflare extends the standard browser CacheStorage with its default cache.
+interface CacheStorage {
+  readonly default: Cache;
+}

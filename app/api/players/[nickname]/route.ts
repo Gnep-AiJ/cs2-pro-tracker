@@ -1,5 +1,7 @@
+import { faceitNickname } from '../../../lib/faceit-nickname';
 import { NextResponse } from "next/server";
 import { findTrackedPlayer } from "../../../data/tracked-players";
+import {readAdvanced} from '../../../lib/pro-lab';
 
 /* eslint-disable @typescript-eslint/no-explicit-any -- FACEIT payloads are validated at runtime. */
 
@@ -56,6 +58,7 @@ function objectValues(value: unknown): any[] {
 }
 
 function parseNumber(value: unknown) {
+  if (value == null || String(value).trim() === "") return null;
   const number = Number(String(value ?? "").replace("%", ""));
   return Number.isFinite(number) ? number : null;
 }
@@ -84,20 +87,24 @@ function chinaDay(date: Date) {
   }).format(date);
 }
 
-export async function GET(_request: Request, { params }: { params: Promise<{ nickname: string }> }) {
+export async function GET(request: Request, { params }: { params: Promise<{ nickname: string }> }) {
   const { nickname } = await params;
   const rawNickname = decodeURIComponent(nickname).trim();
-  const requestedNickname = ["simple", "s1mple"].includes(rawNickname.toLowerCase()) ? "s1mple-" : rawNickname;
+  const requestedNickname = faceitNickname(rawNickname);
   if (!/^[a-zA-Z0-9_.-]{2,32}$/.test(requestedNickname)) {
     return NextResponse.json({ error: "FACEIT 昵称格式不正确" }, { status: 400 });
   }
 
   const knownPlayer = findTrackedPlayer(requestedNickname.toLowerCase());
+  const selectedId = new URL(request.url).searchParams.get("playerId");
+  if (selectedId && !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(selectedId)) return NextResponse.json({ error: "invalid_player_id" }, { status: 400 });
+  if (selectedId && knownPlayer?.faceitPlayerId && selectedId !== knownPlayer.faceitPlayerId) return NextResponse.json({ error: "player_identity_mismatch" }, { status: 409 });
+  const targetId = knownPlayer?.faceitPlayerId || selectedId;
   if (knownPlayer && !knownPlayer.faceitPlayerId) {
     return NextResponse.json({ error: "该职业选手的 FACEIT 身份尚未核验" }, { status: 409 });
   }
   const tracked = knownPlayer || { lookup: requestedNickname, faceitPlayerId: null, display: requestedNickname, team: "FACEIT", role: "玩家", country: "" };
-  const cacheKey = knownPlayer?.faceitPlayerId || `${tracked.lookup.toLowerCase()}:${tracked.display.toLowerCase()}`;
+  const cacheKey = targetId || `${tracked.lookup.toLowerCase()}:${tracked.display.toLowerCase()}`;
   const now = Date.now();
   const cached = playerCache.get(cacheKey);
   if (cached && cached.expiresAt > now) {
@@ -111,11 +118,11 @@ export async function GET(_request: Request, { params }: { params: Promise<{ nic
     try {
     const headers = officialHeaders();
     if (!headers) return NextResponse.json({ error: "FACEIT 数据服务尚未配置" }, { status: 503 });
-    const profile = await fetchOfficial(knownPlayer
-      ? `${FACEIT_DATA}/players/${encodeURIComponent(knownPlayer.faceitPlayerId!)}`
+    const profile = await fetchOfficial(targetId
+      ? `${FACEIT_DATA}/players/${encodeURIComponent(targetId)}`
       : `${FACEIT_DATA}/players?nickname=${encodeURIComponent(tracked.lookup)}&game=cs2`, headers);
     const game = profile?.games?.cs2;
-    if (!profile?.player_id || !game || (knownPlayer && profile.player_id !== knownPlayer.faceitPlayerId)) throw new Error("profile unavailable");
+    if (!profile?.player_id || !game || (targetId && profile.player_id !== targetId)) throw new Error("profile unavailable");
 
     const region = String(game.region || "").toUpperCase();
     const country = String(profile.country || "").toLowerCase();
@@ -148,6 +155,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ nic
       const opponentScore = opponentFaction ? parseNumber(match?.results?.score?.[opponentFaction]) : null;
       const timestamp = Number(match?.finished_at || match?.started_at);
       const stats = detailedByMatch.get(String(match?.match_id || "")) || {};
+      const currentAdvanced=readAdvanced(stats);
       return {
         id: String(match?.match_id || ""),
         playedAt: Number.isFinite(timestamp) && timestamp > 0 ? new Date(timestamp * 1000).toISOString() : null,
@@ -172,9 +180,8 @@ export async function GET(_request: Request, { params }: { params: Promise<{ nic
         mvps: lifetimeValue(stats, "MVPs"),
         rounds: lifetimeValue(stats, "Rounds"),
         damage: lifetimeValue(stats, "Damage"),
-        tripleKills: lifetimeValue(stats, "Triple Kills"),
-        quadroKills: lifetimeValue(stats, "Quadro Kills"),
-        pentaKills: lifetimeValue(stats, "Penta Kills"),
+        ...currentAdvanced,
+        advancedObservedAt:Object.values(currentAdvanced).some(value=>value!=null)?new Date().toISOString():null,
         teammates: objectValues(ownTeam?.players).filter((candidate: any) => candidate?.player_id !== profile.player_id).map((candidate: any) => ({
           id: String(candidate?.player_id || ""),
           nickname: String(candidate?.nickname || "Unknown"),

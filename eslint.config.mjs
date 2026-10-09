@@ -17,6 +17,8 @@ const eslintConfig = defineConfig([
     ".sites-runtime/**",
     ".cf-pages-*/**",
     ".cf-config-audit/**",
+    "outputs/**",
+    "work/**",
     "next-env.d.ts",
   ]),
 ]);

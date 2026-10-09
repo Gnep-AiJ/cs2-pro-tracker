@@ -1,5 +1,5 @@
-import LiveTracker from "../components/LiveTracker";
+import NewsWorkspace from "../components/NewsWorkspace";
 
 export default function NewsPage() {
-  return <LiveTracker initialTab="news" />;
+  return <NewsWorkspace />;
 }

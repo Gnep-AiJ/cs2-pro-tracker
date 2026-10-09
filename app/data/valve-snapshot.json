@@ -1,0 +1,1308 @@
+{
+  "items": [
+    {
+      "rank": 1,
+      "points": 2046,
+      "name": "Spirit",
+      "roster": [
+        "donk",
+        "magixx",
+        "sh1ro",
+        "tN1R",
+        "zont1x"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0001--spirit--donk-magixx-sh1ro-tn1r-zont1x.md"
+    },
+    {
+      "rank": 2,
+      "points": 1931,
+      "name": "Legacy",
+      "roster": [
+        "arT",
+        "dumau",
+        "latto",
+        "n1ssim",
+        "try"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0002--legacy--art-dumau-latto-n1ssim-try.md"
+    },
+    {
+      "rank": 3,
+      "points": 1911,
+      "name": "Vitality",
+      "roster": [
+        "apEX",
+        "flameZ",
+        "mezii",
+        "ropz",
+        "ZywOo"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0003--vitality--apex-flamez-mezii-ropz-zywoo.md"
+    },
+    {
+      "rank": 4,
+      "points": 1863,
+      "name": "MOUZ",
+      "roster": [
+        "PR",
+        "Spinx",
+        "torzsi",
+        "xelex",
+        "xertioN"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0004--mouz--pr-spinx-torzsi-xelex-xertion.md"
+    },
+    {
+      "rank": 5,
+      "points": 1847,
+      "name": "G2",
+      "roster": [
+        "HeavyGod",
+        "huNter-",
+        "MATYS",
+        "NertZ",
+        "r1nkle"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0005--g2--heavygod-hunter--matys-nertz-r1nkle.md"
+    },
+    {
+      "rank": 6,
+      "points": 1843,
+      "name": "Falcons",
+      "roster": [
+        "karrigan",
+        "kyousuke",
+        "m0NESY",
+        "NiKo",
+        "TeSeS"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0006--falcons--karrigan-kyousuke-m0nesy-niko-teses.md"
+    },
+    {
+      "rank": 7,
+      "points": 1829,
+      "name": "FURIA",
+      "roster": [
+        "FalleN",
+        "KSCERATO",
+        "molodoy",
+        "YEKINDAR",
+        "yuurih"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0007--furia--fallen-kscerato-molodoy-yekindar-yuurih.md"
+    },
+    {
+      "rank": 8,
+      "points": 1799,
+      "name": "FUT",
+      "roster": [
+        "cmtry",
+        "dem0n",
+        "dziugss",
+        "Krabeni",
+        "xfl0ud"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0008--fut--cmtry-dem0n-dziugss-krabeni-xfl0ud.md"
+    },
+    {
+      "rank": 9,
+      "points": 1716,
+      "name": "Aurora",
+      "roster": [
+        "Jimpphat",
+        "kyxsan",
+        "Wicadia",
+        "woxic",
+        "XANTARES"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0009--aurora--jimpphat-kyxsan-wicadia-woxic-xantares.md"
+    },
+    {
+      "rank": 10,
+      "points": 1674,
+      "name": "Astralis",
+      "roster": [
+        "HooXi",
+        "jabbi",
+        "phzy",
+        "ryu",
+        "Staehr"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0010--astralis--hooxi-jabbi-phzy-ryu-staehr.md"
+    },
+    {
+      "rank": 11,
+      "points": 1596,
+      "name": "BETBOOM",
+      "roster": [
+        "Boombl4",
+        "d1Ledez",
+        "Magnojez",
+        "S1ren",
+        "zorte"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0011--betboom--boombl4-d1ledez-magnojez-s1ren-zorte.md"
+    },
+    {
+      "rank": 12,
+      "points": 1585,
+      "name": "MIBR",
+      "roster": [
+        "insani",
+        "LNZ",
+        "nqz",
+        "tomaszin",
+        "venomzera"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0012--mibr--insani-lnz-nqz-tomaszin-venomzera.md"
+    },
+    {
+      "rank": 13,
+      "points": 1555,
+      "name": "B8",
+      "roster": [
+        "alex666",
+        "esenthial",
+        "kensizor",
+        "npl",
+        "s1zzi"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0013--b8--alex666-esenthial-kensizor-npl-s1zzi.md"
+    },
+    {
+      "rank": 14,
+      "points": 1551,
+      "name": "Nemiga",
+      "roster": [
+        "KaiR0N-",
+        "khaN",
+        "robo",
+        "syph0",
+        "Xant3r"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0014--nemiga--kair0n--khan-robo-syph0-xant3r.md"
+    },
+    {
+      "rank": 15,
+      "points": 1550,
+      "name": "HEROIC",
+      "roster": [
+        "Brollan",
+        "Chr1zN",
+        "MartinezSa",
+        "nilo",
+        "susp"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0015--heroic--brollan-chr1zn-martinezsa-nilo-susp.md"
+    },
+    {
+      "rank": 16,
+      "points": 1547,
+      "name": "Luminosity",
+      "roster": [
+        "afro",
+        "AZUWU",
+        "lux",
+        "Rainwaker",
+        "yxngstxr"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0016--luminosity--afro-azuwu-lux-rainwaker-yxngstxr.md"
+    },
+    {
+      "rank": 17,
+      "points": 1543,
+      "name": "9z",
+      "roster": [
+        "dgt",
+        "HUASOPEEK",
+        "luchov",
+        "max",
+        "meyern"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0017--9z--dgt-huasopeek-luchov-max-meyern.md"
+    },
+    {
+      "rank": 18,
+      "points": 1534,
+      "name": "Ninjas in Pyjamas",
+      "roster": [
+        "adamb",
+        "Krimbo",
+        "sjuush",
+        "stavn",
+        "xKacpersky"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0018--ninjas_in_pyjamas--adamb-krimbo-sjuush-stavn-xkacpersky.md"
+    },
+    {
+      "rank": 19,
+      "points": 1527,
+      "name": "Liquid",
+      "roster": [
+        "EliGE",
+        "Jorko",
+        "JT",
+        "malbsMd",
+        "NAF"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0019--liquid--elige-jorko-jt-malbsmd-naf.md"
+    },
+    {
+      "rank": 20,
+      "points": 1516,
+      "name": "Inner Circle",
+      "roster": [
+        "cptkurtka023",
+        "Dawy",
+        "headtr1ck",
+        "onic",
+        "zeRRoFIX"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0020--inner_circle--cptkurtka023-dawy-headtr1ck-onic-zerrofix.md"
+    },
+    {
+      "rank": 21,
+      "points": 1500,
+      "name": "3DMAX",
+      "roster": [
+        "Graviti",
+        "Kursy",
+        "Lucky",
+        "Maka",
+        "misutaaa"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0021--3dmax--graviti-kursy-lucky-maka-misutaaa.md"
+    },
+    {
+      "rank": 22,
+      "points": 1491,
+      "name": "M80",
+      "roster": [
+        "JBa",
+        "Lake",
+        "s1n",
+        "slaxz-",
+        "Swisher"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0022--m80--jba-lake-s1n-slaxz--swisher.md"
+    },
+    {
+      "rank": 23,
+      "points": 1489,
+      "name": "magic",
+      "roster": [
+        "AW",
+        "MaSvAl",
+        "mo0N",
+        "sFade8",
+        "tenzy"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0023--magic--aw-masval-mo0n-sfade8-tenzy.md"
+    },
+    {
+      "rank": 24,
+      "points": 1483,
+      "name": "Alliance",
+      "roster": [
+        "avid",
+        "bobeksde",
+        "eraa",
+        "twist",
+        "upE"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0024--alliance--avid-bobeksde-eraa-twist-upe.md"
+    },
+    {
+      "rank": 25,
+      "points": 1482,
+      "name": "BIG",
+      "roster": [
+        "blameF",
+        "faveN",
+        "gr1ks",
+        "JDC",
+        "tabseN"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0025--big--blamef-faven-gr1ks-jdc-tabsen.md"
+    },
+    {
+      "rank": 26,
+      "points": 1482,
+      "name": "FaZe",
+      "roster": [
+        "frozen",
+        "JBOEN",
+        "jcobbb",
+        "Neityu",
+        "Twistzz"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0026--faze--frozen-jboen-jcobbb-neityu-twistzz.md"
+    },
+    {
+      "rank": 27,
+      "points": 1479,
+      "name": "GamerLegion",
+      "roster": [
+        "FL4MUS",
+        "hypex",
+        "REZ",
+        "Snax",
+        "Tauson"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0027--gamerlegion--fl4mus-hypex-rez-snax-tauson.md"
+    },
+    {
+      "rank": 28,
+      "points": 1478,
+      "name": "100 Thieves",
+      "roster": [
+        "device",
+        "Gizmy",
+        "poiii",
+        "rain",
+        "sirah"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0028--100_thieves--device-gizmy-poiii-rain-sirah.md"
+    },
+    {
+      "rank": 29,
+      "points": 1455,
+      "name": "Nemesis",
+      "roster": [
+        "mag1k3Y",
+        "r3salt",
+        "Sdaim",
+        "SELLTER",
+        "tex1y"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0029--nemesis--mag1k3y-r3salt-sdaim-sellter-tex1y.md"
+    },
+    {
+      "rank": 30,
+      "points": 1454,
+      "name": "JiJieHao",
+      "roster": [
+        "0SAMAS",
+        "Bibu",
+        "CacaNito",
+        "m1N1",
+        "sinnopsyy"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0030--jijiehao--0samas-bibu-cacanito-m1n1-sinnopsyy.md"
+    },
+    {
+      "rank": 31,
+      "points": 1437,
+      "name": "HOTU",
+      "roster": [
+        "dwushka",
+        "frontales",
+        "kade0",
+        "mizu",
+        "n0rb3r7"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0031--hotu--dwushka-frontales-kade0-mizu-n0rb3r7.md"
+    },
+    {
+      "rank": 32,
+      "points": 1435,
+      "name": "K27",
+      "roster": [
+        "clax",
+        "kashl1d",
+        "qw1nk1",
+        "X5G7V",
+        "xeedo"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0032--k27--clax-kashl1d-qw1nk1-x5g7v-xeedo.md"
+    },
+    {
+      "rank": 33,
+      "points": 1429,
+      "name": "Eternal Fire",
+      "roster": [
+        "jottAAA",
+        "Kvem",
+        "MisteM",
+        "regali",
+        "soulfly"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0033--eternal_fire--jottaaa-kvem-mistem-regali-soulfly.md"
+    },
+    {
+      "rank": 34,
+      "points": 1427,
+      "name": "Natus Vincere",
+      "roster": [
+        "Aleksib",
+        "b1t",
+        "iM",
+        "makazze",
+        "w0nderful"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0034--natus_vincere--aleksib-b1t-im-makazze-w0nderful.md"
+    },
+    {
+      "rank": 35,
+      "points": 1417,
+      "name": "fnatic",
+      "roster": [
+        "cairne",
+        "fEAR",
+        "jackasmo",
+        "jambo",
+        "mazay"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0035--fnatic--cairne-fear-jackasmo-jambo-mazay.md"
+    },
+    {
+      "rank": 36,
+      "points": 1411,
+      "name": "PARIVISION",
+      "roster": [
+        "FL1T",
+        "Jame",
+        "slaxejezzz",
+        "xiELO",
+        "zweih"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0036--parivision--fl1t-jame-slaxejezzz-xielo-zweih.md"
+    },
+    {
+      "rank": 37,
+      "points": 1386,
+      "name": "BBL",
+      "roster": [
+        "Boye",
+        "IceBerg",
+        "leakz",
+        "NickyB",
+        "salazar"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0037--bbl--boye-iceberg-leakz-nickyb-salazar.md"
+    },
+    {
+      "rank": 38,
+      "points": 1383,
+      "name": "1win",
+      "roster": [
+        "ArtFr0st",
+        "Ax1Le",
+        "BELCHONOKK",
+        "fame",
+        "nafany"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0038--1win--artfr0st-ax1le-belchonokk-fame-nafany.md"
+    },
+    {
+      "rank": 39,
+      "points": 1368,
+      "name": "DENDELE",
+      "roster": [
+        "doc",
+        "gafolo",
+        "koala",
+        "maxxkor",
+        "rdnzao"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0039--dendele--doc-gafolo-koala-maxxkor-rdnzao.md"
+    },
+    {
+      "rank": 40,
+      "points": 1362,
+      "name": "Sangal",
+      "roster": [
+        "adamS",
+        "bnox",
+        "Joey",
+        "puuha",
+        "R4DYX"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0040--sangal--adams-bnox-joey-puuha-r4dyx.md"
+    },
+    {
+      "rank": 41,
+      "points": 1359,
+      "name": "SINNERS",
+      "roster": [
+        "beastik",
+        "kisserek",
+        "MoDo",
+        "SHOCK",
+        "stressarN"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0041--sinners--beastik-kisserek-modo-shock-stressarn.md"
+    },
+    {
+      "rank": 42,
+      "points": 1346,
+      "name": "SAW",
+      "roster": [
+        "ewjerkz",
+        "krazy",
+        "MUTiRiS",
+        "NOPEEj",
+        "story"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0042--saw--ewjerkz-krazy-mutiris-nopeej-story.md"
+    },
+    {
+      "rank": 43,
+      "points": 1343,
+      "name": "EYEBALLERS",
+      "roster": [
+        "dex",
+        "JW",
+        "KRIMZ",
+        "maxster",
+        "Ro1f"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0043--eyeballers--dex-jw-krimz-maxster-ro1f.md"
+    },
+    {
+      "rank": 44,
+      "points": 1340,
+      "name": "TYLOO",
+      "roster": [
+        "JamYoung",
+        "Jee",
+        "Mercury",
+        "Moseyuh",
+        "Zero"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0044--tyloo--jamyoung-jee-mercury-moseyuh-zero.md"
+    },
+    {
+      "rank": 45,
+      "points": 1333,
+      "name": "Betclic",
+      "roster": [
+        "Demho",
+        "ex1st",
+        "Prism",
+        "Qlocuu",
+        "ultimate"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0045--betclic--demho-ex1st-prism-qlocuu-ultimate.md"
+    },
+    {
+      "rank": 46,
+      "points": 1324,
+      "name": "Nuclear TigeRES",
+      "roster": [
+        "ayuki",
+        "Djon8",
+        "flouzer",
+        "senka",
+        "tronic"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0046--nuclear_tigeres--ayuki-djon8-flouzer-senka-tronic.md"
+    },
+    {
+      "rank": 47,
+      "points": 1322,
+      "name": "NRG",
+      "roster": [
+        "Grim",
+        "hallzerk",
+        "Jeorge",
+        "nitr0",
+        "Sonic"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0047--nrg--grim-hallzerk-jeorge-nitr0-sonic.md"
+    },
+    {
+      "rank": 48,
+      "points": 1321,
+      "name": "FOKUS",
+      "roster": [
+        "Banjo",
+        "jocab",
+        "Matheos",
+        "podi",
+        "ztr"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0048--fokus--banjo-jocab-matheos-podi-ztr.md"
+    },
+    {
+      "rank": 49,
+      "points": 1318,
+      "name": "The MongolZ",
+      "roster": [
+        "910",
+        "bLitz",
+        "DarkMeister",
+        "Techno",
+        "tikuak"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0049--the_mongolz--910-blitz-darkmeister-techno-tikuak.md"
+    },
+    {
+      "rank": 50,
+      "points": 1318,
+      "name": "BC.Game",
+      "roster": [
+        "asap",
+        "Magisk",
+        "mzinho",
+        "s1mple",
+        "Senzu"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0050--bc_game--asap-magisk-mzinho-s1mple-senzu.md"
+    },
+    {
+      "rank": 51,
+      "points": 1309,
+      "name": "Virtus.pro",
+      "roster": [
+        "AquaRS",
+        "b1st",
+        "F0R3VER",
+        "mir",
+        "tO0RO"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0051--virtus_pro--aquars-b1st-f0r3ver-mir-to0ro.md"
+    },
+    {
+      "rank": 52,
+      "points": 1297,
+      "name": "Imperial",
+      "roster": [
+        "chelo",
+        "decenty",
+        "noway",
+        "saadzin",
+        "VINI"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0052--imperial--chelo-decenty-noway-saadzin-vini.md"
+    },
+    {
+      "rank": 53,
+      "points": 1290,
+      "name": "Metizport",
+      "roster": [
+        "F1KU",
+        "forsyy",
+        "MaiL09",
+        "Plopski",
+        "stanislaw"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0053--metizport--f1ku-forsyy-mail09-plopski-stanislaw.md"
+    },
+    {
+      "rank": 54,
+      "points": 1287,
+      "name": "paiN",
+      "roster": [
+        "biguzera",
+        "Rkzinho",
+        "saffee",
+        "snow",
+        "Tatu"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0054--pain--biguzera-rkzinho-saffee-snow-tatu.md"
+    },
+    {
+      "rank": 55,
+      "points": 1277,
+      "name": "Fluxo",
+      "roster": [
+        "dav1deuS",
+        "exit",
+        "kye",
+        "Ltz",
+        "zevy"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0055--fluxo--dav1deus-exit-kye-ltz-zevy.md"
+    },
+    {
+      "rank": 56,
+      "points": 1259,
+      "name": "INFINITE",
+      "roster": [
+        "Blytz",
+        "kreaz",
+        "kyuubii",
+        "sl3nd",
+        "volt"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0056--infinite--blytz-kreaz-kyuubii-sl3nd-volt.md"
+    },
+    {
+      "rank": 57,
+      "points": 1249,
+      "name": "Color",
+      "roster": [
+        "cronuss",
+        "lattykk",
+        "oz1k",
+        "Patsi",
+        "reyoz"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0057--color--cronuss-lattykk-oz1k-patsi-reyoz.md"
+    },
+    {
+      "rank": 58,
+      "points": 1239,
+      "name": "Wildcard",
+      "roster": [
+        "Cxzi",
+        "fr3nd",
+        "HexT",
+        "nEMANHA",
+        "reck"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0058--wildcard--cxzi-fr3nd-hext-nemanha-reck.md"
+    },
+    {
+      "rank": 59,
+      "points": 1218,
+      "name": "Iberian Soul",
+      "roster": [
+        "Ag1l",
+        "alex",
+        "dav1g",
+        "mopoz",
+        "sausol"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0059--iberian_soul--ag1l-alex-dav1g-mopoz-sausol.md"
+    },
+    {
+      "rank": 60,
+      "points": 1201,
+      "name": "WBT",
+      "roster": [
+        "DemQQ",
+        "Psycho",
+        "s4ltovsk1yy",
+        "Smash",
+        "tyr1k"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0060--wbt--demqq-psycho-s4ltovsk1yy-smash-tyr1k.md"
+    },
+    {
+      "rank": 61,
+      "points": 1201,
+      "name": "CYBERSHOKE",
+      "roster": [
+        "Alkaren",
+        "alpha",
+        "Mokuj1n",
+        "nota",
+        "yiksrezo"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0061--cybershoke--alkaren-alpha-mokuj1n-nota-yiksrezo.md"
+    },
+    {
+      "rank": 62,
+      "points": 1199,
+      "name": "SportsBetExpert",
+      "roster": [
+        "consti",
+        "Infinite",
+        "motm",
+        "Peeping",
+        "shane"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0062--sportsbetexpert--consti-infinite-motm-peeping-shane.md"
+    },
+    {
+      "rank": 63,
+      "points": 1197,
+      "name": "Acend",
+      "roster": [
+        "h4rn",
+        "REDSTAR",
+        "SHiPZ",
+        "Skrimo",
+        "SPELLAN"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0063--acend--h4rn-redstar-shipz-skrimo-spellan.md"
+    },
+    {
+      "rank": 64,
+      "points": 1190,
+      "name": "Lynn Vision",
+      "roster": [
+        "C4LLM3SU3",
+        "EmiliaQAQ",
+        "Starry",
+        "Westmelon",
+        "z4KR"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0064--lynn_vision--c4llm3su3-emiliaqaq-starry-westmelon-z4kr.md"
+    },
+    {
+      "rank": 65,
+      "points": 1189,
+      "name": "BESTIA",
+      "roster": [
+        "buda",
+        "cass1n",
+        "drop",
+        "kauez",
+        "timo"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0065--bestia--buda-cass1n-drop-kauez-timo.md"
+    },
+    {
+      "rank": 66,
+      "points": 1185,
+      "name": "GenOne",
+      "roster": [
+        "bL4SEZ",
+        "Brooxsy",
+        "Chucky",
+        "Djoko",
+        "Keoz"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0066--genone--bl4sez-brooxsy-chucky-djoko-keoz.md"
+    },
+    {
+      "rank": 67,
+      "points": 1185,
+      "name": "UPGRADE",
+      "roster": [
+        "DAN9ARMATURA",
+        "dezl3bio",
+        "pleynnn",
+        "SquEzxc",
+        "tw1sterzaza"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0067--upgrade--dan9armatura-dezl3bio-pleynnn-squezxc-tw1sterzaza.md"
+    },
+    {
+      "rank": 68,
+      "points": 1182,
+      "name": "Voca",
+      "roster": [
+        "dare",
+        "junior",
+        "MarKE",
+        "nosraC",
+        "snav"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0068--voca--dare-junior-marke-nosrac-snav.md"
+    },
+    {
+      "rank": 69,
+      "points": 1167,
+      "name": "UNiTY",
+      "roster": [
+        "2high",
+        "Dytor",
+        "KWERTZZ",
+        "M1key",
+        "Sn0w"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0069--unity--2high-dytor-kwertzz-m1key-sn0w.md"
+    },
+    {
+      "rank": 70,
+      "points": 1155,
+      "name": "NT",
+      "roster": [
+        "fakerealityy",
+        "m4d4ra",
+        "Ryuzak1",
+        "ta9z",
+        "Woro2k"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0070--nt--fakerealityy-m4d4ra-ryuzak1-ta9z-woro2k.md"
+    },
+    {
+      "rank": 71,
+      "points": 1149,
+      "name": "BET-M",
+      "roster": [
+        "bluewh1te",
+        "executor",
+        "Raijin",
+        "synyx",
+        "z1Nny"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0071--bet-m--bluewh1te-executor-raijin-synyx-z1nny.md"
+    },
+    {
+      "rank": 72,
+      "points": 1147,
+      "name": "Phantom",
+      "roster": [
+        "KEi",
+        "Kunai",
+        "Kylar",
+        "nicoodoz",
+        "TMB"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0072--phantom--kei-kunai-kylar-nicoodoz-tmb.md"
+    },
+    {
+      "rank": 73,
+      "points": 1131,
+      "name": "Sashi",
+      "roster": [
+        "acoR",
+        "Anlelele",
+        "Cabbi",
+        "MistR",
+        "Zyphon"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0073--sashi--acor-anlelele-cabbi-mistr-zyphon.md"
+    },
+    {
+      "rank": 74,
+      "points": 1121,
+      "name": "ShindeN",
+      "roster": [
+        "abizz",
+        "guty",
+        "ivz",
+        "naz",
+        "tom1jed"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0074--shinden--abizz-guty-ivz-naz-tom1jed.md"
+    },
+    {
+      "rank": 75,
+      "points": 1116,
+      "name": "BRUTE",
+      "roster": [
+        "aidKiT",
+        "hfah",
+        "nbqq",
+        "tAk",
+        "ZEDKO"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0075--brute--aidkit-hfah-nbqq-tak-zedko.md"
+    },
+    {
+      "rank": 76,
+      "points": 1116,
+      "name": "Black Phoenix",
+      "roster": [
+        "4X1s",
+        "karnez",
+        "MRcreed",
+        "Salazar",
+        "topo"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0076--black_phoenix--4x1s-karnez-mrcreed-salazar-topo.md"
+    },
+    {
+      "rank": 77,
+      "points": 1113,
+      "name": "aimclub",
+      "roster": [
+        "ERSIN",
+        "mhN1",
+        "ragga",
+        "waZz",
+        "zewts"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0077--aimclub--ersin-mhn1-ragga-wazz-zewts.md"
+    },
+    {
+      "rank": 78,
+      "points": 1113,
+      "name": "Lazer Cats",
+      "roster": [
+        "Kiy0o",
+        "Magic",
+        "n0rths",
+        "nikitea",
+        "tripex17"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0078--lazer_cats--kiy0o-magic-n0rths-nikitea-tripex17.md"
+    },
+    {
+      "rank": 79,
+      "points": 1112,
+      "name": "9INE",
+      "roster": [
+        "b1elany",
+        "flayy",
+        "kraghen",
+        "raalz",
+        "rigoN"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0079--9ine--b1elany-flayy-kraghen-raalz-rigon.md"
+    },
+    {
+      "rank": 80,
+      "points": 1110,
+      "name": "5star",
+      "roster": [
+        "ariucle",
+        "clouden",
+        "hoolig4n",
+        "NEUZ",
+        "rate"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0080--5star--ariucle-clouden-hoolig4n-neuz-rate.md"
+    },
+    {
+      "rank": 81,
+      "points": 1110,
+      "name": "Rune Eaters",
+      "roster": [
+        "demente",
+        "dukefissura",
+        "forkyz",
+        "her1tage",
+        "noni"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0081--rune_eaters--demente-dukefissura-forkyz-her1tage-noni.md"
+    },
+    {
+      "rank": 82,
+      "points": 1105,
+      "name": "INOX Division",
+      "roster": [
+        "FenomeN",
+        "finW",
+        "gooddeph",
+        "k0s",
+        "k1slll"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0082--inox_division--fenomen-finw-gooddeph-k0s-k1slll.md"
+    },
+    {
+      "rank": 83,
+      "points": 1103,
+      "name": "Omega",
+      "roster": [
+        "adai",
+        "Aldikon",
+        "Botpa1",
+        "dan4o",
+        "def1zer"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0083--omega--adai-aldikon-botpa1-dan4o-def1zer.md"
+    },
+    {
+      "rank": 84,
+      "points": 1100,
+      "name": "FORZE Reload",
+      "roster": [
+        "HeCkBNk",
+        "Kaide",
+        "KusMe",
+        "Lack1",
+        "YumsaN"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0084--forze_reload--heckbnk-kaide-kusme-lack1-yumsan.md"
+    },
+    {
+      "rank": 85,
+      "points": 1099,
+      "name": "Galorys",
+      "roster": [
+        "destiny",
+        "detr0ittJ",
+        "gbb",
+        "PKL",
+        "tomate"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0085--galorys--destiny-detr0ittj-gbb-pkl-tomate.md"
+    },
+    {
+      "rank": 86,
+      "points": 1093,
+      "name": "FlyQuest",
+      "roster": [
+        "aliStair",
+        "INS",
+        "jks",
+        "nettik",
+        "Vexite"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0086--flyquest--alistair-ins-jks-nettik-vexite.md"
+    },
+    {
+      "rank": 87,
+      "points": 1084,
+      "name": "Chinggis Warriors",
+      "roster": [
+        "cool4st",
+        "fury5k",
+        "ROUX",
+        "sk0R",
+        "yAmi"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0087--chinggis_warriors--cool4st-fury5k-roux-sk0r-yami.md"
+    },
+    {
+      "rank": 88,
+      "points": 1082,
+      "name": "Butterfly",
+      "roster": [
+        "ayano",
+        "Forester",
+        "k1ssly",
+        "Kurama",
+        "nitzie"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0088--butterfly--ayano-forester-k1ssly-kurama-nitzie.md"
+    },
+    {
+      "rank": 89,
+      "points": 1080,
+      "name": "QUAZAR",
+      "roster": [
+        "gehji",
+        "kaiori",
+        "Ne1XXX",
+        "newt",
+        "Porya"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0089--quazar--gehji-kaiori-ne1xxx-newt-porya.md"
+    },
+    {
+      "rank": 90,
+      "points": 1072,
+      "name": "LP",
+      "roster": [
+        "Alisson",
+        "divine",
+        "happ",
+        "Leomonster",
+        "zmb"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0090--lp--alisson-divine-happ-leomonster-zmb.md"
+    },
+    {
+      "rank": 91,
+      "points": 1072,
+      "name": "ASTRAL",
+      "roster": [
+        "gxx-",
+        "meowpop",
+        "Neqy",
+        "RaY5ive",
+        "swiz"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0091--astral--gxx--meowpop-neqy-ray5ive-swiz.md"
+    },
+    {
+      "rank": 92,
+      "points": 1066,
+      "name": "ex-RUSTEC",
+      "roster": [
+        "Brilliance",
+        "glowiing",
+        "shalfey",
+        "yiksrezo",
+        "youka"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0092--ex-rustec--brilliance-glowiing-shalfey-yiksrezo-youka.md"
+    },
+    {
+      "rank": 93,
+      "points": 1066,
+      "name": "ex-Zero Tenacity",
+      "roster": [
+        "brutmonster",
+        "Cjoffo",
+        "Dragon",
+        "Kind0",
+        "VLDN"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0093--ex-zero_tenacity--brutmonster-cjoffo-dragon-kind0-vldn.md"
+    },
+    {
+      "rank": 94,
+      "points": 1064,
+      "name": "Inner Circle Academy",
+      "roster": [
+        "3ippoch",
+        "Flierax",
+        "L1seYoung",
+        "NaYz",
+        "Tamefear"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0094--inner_circle_academy--3ippoch-flierax-l1seyoung-nayz-tamefear.md"
+    },
+    {
+      "rank": 95,
+      "points": 1064,
+      "name": "PRIVATE",
+      "roster": [
+        "1eeR",
+        "H4SAN4TOR",
+        "sh1nejezzz",
+        "sowalio",
+        "z1k4"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0095--private--1eer-h4san4tor-sh1nejezzz-sowalio-z1k4.md"
+    },
+    {
+      "rank": 96,
+      "points": 1054,
+      "name": "Bounty Hunters",
+      "roster": [
+        "KAISER",
+        "pepe",
+        "ponter",
+        "urban0",
+        "zock"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0096--bounty_hunters--kaiser-pepe-ponter-urban0-zock.md"
+    },
+    {
+      "rank": 97,
+      "points": 1054,
+      "name": "SPARTA",
+      "roster": [
+        "El1an",
+        "glowiing",
+        "interz",
+        "NickelBack",
+        "TRAVIS"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0097--sparta--el1an-glowiing-interz-nickelback-travis.md"
+    },
+    {
+      "rank": 98,
+      "points": 1051,
+      "name": "Turma do Pagode",
+      "roster": [
+        "ksloks",
+        "matios",
+        "naitte",
+        "Tuurtle",
+        "WOOD7"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0098--turma_do_pagode--ksloks-matios-naitte-tuurtle-wood7.md"
+    },
+    {
+      "rank": 99,
+      "points": 1049,
+      "name": "Johnny Speeds",
+      "roster": [
+        "bsover",
+        "draken",
+        "hampus",
+        "Rack",
+        "Svedjehed"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0099--johnny_speeds--bsover-draken-hampus-rack-svedjehed.md"
+    },
+    {
+      "rank": 100,
+      "points": 1044,
+      "name": "BAKS",
+      "roster": [
+        "danistzz",
+        "Norwi",
+        "turbo",
+        "whisper",
+        "xdENiSZERA"
+      ],
+      "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/details/2026_10_05/0100--baks--danistzz-norwi-turbo-whisper-xdeniszera.md"
+    }
+  ],
+  "snapshotDate": "2026-10-05",
+  "sourceUrl": "https://github.com/ValveSoftware/counter-strike_regional_standings/blob/main/live/2026/standings_global_2026_10_05.md",
+  "stale": true,
+  "updatedAt": null
+}

@@ -50,6 +50,7 @@ await writeFile(join(releaseRoot, "_headers"), `# Cache content-hashed assets im
 await writeFile(join(releaseRoot, "wrangler.toml"), `name = "cs2pro"
 pages_build_output_dir = "."
 compatibility_date = "${compatibilityDate}"
+compatibility_flags = ["nodejs_compat"]
 
 [env.production]
 compatibility_flags = ["nodejs_compat"]
@@ -57,8 +58,21 @@ compatibility_flags = ["nodejs_compat"]
 [env.production.ai]
 binding = "AI"
 
+[[env.production.r2_buckets]]
+binding = "PRO_DATA"
+bucket_name = "cs2pro-data"
+
 [ai]
 binding = "AI"
+
+[[r2_buckets]]
+binding = "PRO_DATA"
+bucket_name = "cs2pro-data"
 `, "utf8");
 
 console.log(`Packaged one-build Pages release: ${releaseRoot}`);
+
+// Keep the release configuration independent from Vinext's parent deploy redirect.
+await mkdir(join(releaseRoot, ".wrangler/deploy"), { recursive: true });
+await writeFile(join(releaseRoot, ".wrangler/deploy/config.json"), JSON.stringify({ configPath: "../../wrangler.toml", auxiliaryWorkers: [] }));
+await writeFile(join(releaseRoot, ".assetsignore"), ".wrangler\nwrangler.toml\n.assetsignore\n");

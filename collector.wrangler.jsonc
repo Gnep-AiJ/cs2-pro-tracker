@@ -1,0 +1,8 @@
+{
+  "name":"cs2pro-data",
+  "main":"worker/pro-collector.ts",
+  "compatibility_date":"2026-10-08",
+  "triggers":{"crons":["17 */6 * * *"]},
+  "r2_buckets":[{"binding":"PRO_DATA","bucket_name":"cs2pro-data"}],
+  "observability":{"enabled":true,"traces":{"enabled":true,"head_sampling_rate":1}}
+}

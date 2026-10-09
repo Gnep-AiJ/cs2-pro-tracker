@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import EventsWorkspace from "../components/EventsWorkspace";
 
 export default function MatchesPage() {
-  redirect("/faceit");
+  return <EventsWorkspace />;
 }
