@@ -84,7 +84,7 @@ The following original sections are retained for traceability. Apply the current
 
 - `.env.local`: local secret values; never commit or print.
 - `.env.example`: public variable names only.
-- `.openai/hosting.json`: existing Sites identity; preserve the project ID.
+- `.openai/hosting.json`: committed Sites manifest (`d1`, `project_id`, `r2`). `project_id` is a placeholder; set the real id locally and do not commit it.
 - `vite.config.ts`: Vinext, Sites, Cloudflare bindings, and LAN host settings.
 - `dist/`, `.vinext/`, `.wrangler/`: generated output; do not edit by hand.
 

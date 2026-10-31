@@ -7,7 +7,7 @@
 - `app/`：首页、FACEIT、赛事、动态与选手详情页面，以及实时数据 API
 - `db/`、`drizzle/`、`prisma/`：数据层与数据库模型
 - `scripts/`、`build/`、`worker/`：构建、校验与边缘运行文件
-- `.openai/hosting.json`：当前 Sites 项目标识与部署配置
+- `.openai/hosting.json`：Sites 部署配置。`project_id` 为占位符，真实 ID 只在本地填写且不要提交
 - `skills/cs2-pro-tracker/SKILL.md`：可复用的项目开发与维护说明
 - `package.json`、`package-lock.json`：依赖与锁定版本
 - `tests/`：渲染测试
