@@ -34,4 +34,4 @@ Before changing code, read these files in order:
 - Tracked roster: `app/data/tracked-players.ts`
 - Worker cache and AI summary boundary: `worker/`
 - Tests: `tests/`
-- Hosting identity: `.openai/hosting.json`
+- Hosting manifest (placeholder `project_id`): `.openai/hosting.json`

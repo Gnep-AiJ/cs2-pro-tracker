@@ -79,7 +79,7 @@ Fetch detailed match statistics only when a player detail page is requested. Do 
 
 ## Safe maintenance workflow
 
-1. Read `.openai/hosting.json` and preserve the existing Sites identity.
+1. Read `.openai/hosting.json` and keep its field shape. Do not commit a real `project_id`.
 2. Inspect the exact route or component being changed before editing.
 3. Keep data normalization in server routes and presentation logic in components.
 4. Run `npm run lint` after edits.

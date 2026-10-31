@@ -160,6 +160,14 @@ test("community and permanent contact share separate original contact and paymen
   assert.match(tracker, /tab === "community" \? <CommunityPage \/>/);
 });
 
+test("committed hosting manifest keeps a placeholder project id", async () => {
+  const hosting = JSON.parse(await source(".openai/hosting.json"));
+  assert.equal(hosting.project_id, "YOUR_OPENAI_HOSTING_PROJECT_ID");
+  assert.equal(hosting.d1, null);
+  assert.equal(hosting.r2, null);
+  assert.doesNotMatch(JSON.stringify(hosting), /appgprj_/);
+});
+
 test("every product surface uses the shared site header", async () => {
   const [header, tracker, rankings, player, match] = await Promise.all([
     source("app/components/SiteHeader.tsx"),

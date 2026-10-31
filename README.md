@@ -35,7 +35,7 @@ npm run dev
 - `RATING_FEED_TOKEN`
 - `HLTV_AUTHORIZED_ACCESS`
 
-本地查看对局和赛事时，通常需要 `FACEIT_API_KEY` 和 `PANDASCORE_API_TOKEN`。
+本地查看对局和赛事时，通常需要 `FACEIT_API_KEY` 和 `PANDASCORE_API_TOKEN`。`.openai/hosting.json` 保持现有字段供构建读取；`project_id` 使用占位符，真实 Sites 项目 ID 只在本地填写，不要提交。
 
 ## 文档
 
